@@ -1,0 +1,1770 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>ARMORBOT ELITE — History</title>
+<style>
+.history-scroll{position:absolute;left:0;right:0;top:106px;bottom:92px;overflow-y:auto;overflow-x:hidden;touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-width:none;z-index:1;}
+.history-scroll::-webkit-scrollbar{display:none;width:0;height:0;}
+.trade{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.trade.expanded{background:#dcdcdc;}
+.date-option{touch-action:manipulation;}
+.date-check{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:34px;line-height:1;color:#2188c3;font-weight:500;display:none;}
+.date-option.selected .date-check{display:block;}
+.date-option.selected{background:#fff;}
+:root{--scale:1;--w:732px;--nav-height:92px;--text:#303030;--blue:#2188c3;--red:#b43132;--green:#75b91c}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-width:0;height:100%;background:#fff;font-family:Roboto,Arial,sans-serif;color:var(--text);font-synthesis:none;overflow:hidden;overscroll-behavior:none;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+body{display:block;min-height:100vh}
+.stage{position:relative;width:min(732px,100vw);height:calc(1536px * var(--scale));margin:0 auto;overflow:hidden;background:#fff}
+.screen{position:absolute;left:0;top:0;width:732px;height:1536px;min-height:1536px;background:#fff;overflow:hidden;transform:scale(var(--scale));transform-origin:top left}
+.header{height:106px;display:flex;align-items:flex-start;position:relative;background:#fff}
+.menu{position:absolute;left:18px;top:38px;width:34px;height:27px;cursor:pointer;-webkit-tap-highlight-color:transparent;z-index:2147483646;pointer-events:auto;touch-action:manipulation}
+.menu span{display:block;height:4px;background:#222;margin-bottom:5px;border-radius:1px}
+.header-title{position:absolute;left:71px;top:18px;line-height:1}.history{font-size:24px;font-weight:400;margin-bottom:10px}.symbols{font-size:27px;font-weight:400}
+.header-icons{position:absolute;left:0;right:0;top:0;height:100%;display:block;color:#555;z-index:2;overflow:visible;pointer-events:none}
+.header-icons svg{position:absolute;display:block;overflow:visible;opacity:.90;pointer-events:none}
+.header-icons svg:nth-of-type(1){left:480px;top:30px;width:43px;height:36px}.header-icons svg:nth-of-type(2){left:574px;top:31px;width:42px;height:35px}.header-icons svg:nth-of-type(3){left:664px;top:28px;width:44px;height:43px}
+/* Dedicated calendar hit target sits directly in the header, outside the non-interactive icon layer. */
+.calendar-hit{position:absolute;left:646px;top:17px;width:70px;height:68px;padding:0;margin:0;border:0;background:transparent;cursor:pointer;z-index:2147483000;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent;display:block;appearance:none;-webkit-appearance:none;}
+.summary{padding-top:8px;height:203px;border-bottom:1px solid #ededed}
+.sumrow{height:44px;display:flex;align-items:center;padding:0 22px 0 24px;font-size:24px;line-height:1;font-weight:650;color:#414141}
+.sumrow .label{font-weight:700;color:#3f3f3f;white-space:nowrap}.sumrow .leader{flex:1 1 auto;border-bottom:4px dotted #e2e2e2;margin:0 14px 1px 14px;transform:translateY(1px)}
+.sumrow .value{min-width:138px;text-align:right;color:#0b0b0b;white-space:nowrap;font-weight:700}.sumrow.profit .value{color:var(--blue);font-weight:700}.sumrow.withdrawal .value{color:#151515;font-weight:650}
+.balance-entry{position:relative;height:90px;padding:14px 24px;border-bottom:1px solid #ececec}.balance-entry .label{font-size:25px;font-weight:700;color:#3f3f3f}.balance-entry .date{position:absolute;right:26px;top:17px;font-size:22px;color:#888888;font-weight:500}.balance-entry .amount{position:absolute;right:26px;top:48px;font-size:24px;color:var(--red);font-weight:700}
+.trades{position:relative;padding-bottom:92px}.trade{position:relative;border-bottom:1px solid #e3e3e3;background:#fff}.trade.expanded{height:234px}.trade.compact{height:88px}.trade .accent{position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--green)}
+.trade-main{position:absolute;left:24px;right:23px;top:12px}.trade-title{font-size:25px;line-height:29px;font-weight:700;white-space:nowrap;color:#353535}.trade-title .action{font-weight:700;color:var(--red)}.trade-title .action.buy{color:#1778cf}.prices{font-size:25px;line-height:31px;color:#777777;font-weight:600;white-space:nowrap}
+.trade .date{position:absolute;right:0;top:9px;color:#858585;font-size:20px;line-height:24px;font-weight:500;white-space:nowrap}.trade .profit{position:absolute;right:0;top:43px;color:#1677c8;font-size:23px;line-height:24px;font-weight:700}
+.source-line{position:absolute;left:0;top:74px;right:0;font-size:21px;line-height:24px;font-weight:500;color:#7e7e7e;white-space:nowrap}
+.meta{position:absolute;left:24px;right:24px;top:120px;display:grid;grid-template-columns:1fr 1fr;column-gap:45px;row-gap:10px;font-size:20px;color:#7f7f7f;font-weight:500}.meta .cell{display:flex;justify-content:space-between;white-space:nowrap}.meta .k{font-weight:600;color:#7b7b7b}.meta .v{color:#7f7f7f;font-weight:500}
+.nav{position:fixed;left:50%;bottom:0;width:732px;height:92px;transform:translateX(-50%) scale(var(--scale));transform-origin:center bottom;background:#f7f7f7;border-top:1px solid #ededed;z-index:99999;display:block;visibility:visible;opacity:1}
+.nav-item{position:absolute;top:0;width:70px;height:92px;display:block;color:#707070;cursor:pointer;z-index:100000;-webkit-tap-highlight-color:transparent;user-select:none}
+.nav-item svg{position:absolute;display:block;overflow:visible;pointer-events:none;user-select:none;-webkit-user-drag:none;opacity:.9}
+.nav-item:nth-child(1){left:51px}.nav-item:nth-child(1) svg{left:0;top:18px;width:47px;height:42px}
+.nav-item:nth-child(2){left:167px}.nav-item:nth-child(2) svg{left:0;top:18px;width:49px;height:48px}
+.nav-item:nth-child(3){left:290px}.nav-item:nth-child(3) svg{left:0;top:19px;width:45px;height:43px}
+.nav-item:nth-child(4){left:406px}.nav-item:nth-child(4) svg{left:0;top:15px;width:46px;height:45px}
+.nav-item:nth-child(5){left:521px}.nav-item:nth-child(5) svg{left:0;top:17px;width:48px;height:46px}
+.nav-item:nth-child(6){left:627px}.nav-item:nth-child(6) svg{left:0;top:18px;width:47px;height:46px}
+.nav-item.active{color:#3F9FE8}.nav-item.active svg{opacity:1}
+
+
+
+/* Calendar popup is an isolated overlay. It never participates in History layout. */
+.date-overlay-root{
+  position:fixed;
+  left:50%;
+  top:0;
+  width:732px;
+  height:1536px;
+  transform:translateX(-50%) scale(var(--scale));
+  transform-origin:top center;
+  pointer-events:none;
+  z-index:200000;
+}
+.date-overlay-root.open{pointer-events:auto}
+.date-menu-backdrop{
+  position:absolute;
+  left:0;top:106px;
+  width:732px;height:1338px;
+  background:transparent;
+  display:none;
+  z-index:1;
+}
+.date-menu-backdrop.open{display:block}
+.date-menu{
+  position:absolute;
+  left:318px;top:106px;
+  width:414px;height:414px;
+  background:#fff;
+  border-left:1px solid #e4e4e4;
+  border-bottom:1px solid #e4e4e4;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
+  display:none;
+  z-index:2;
+}
+.date-menu.open{display:block}
+@media (orientation:landscape){.date-menu{left:auto;right:0;transform:scale(var(--landscape-popup-scale,1));transform-origin:top right;}}
+.calendar-hit:focus{outline:none;}
+
+.date-option{
+  position:relative;
+  width:414px;height:82px;
+  border-bottom:1px solid #e6e6e6;
+  display:flex;align-items:center;
+  padding:0 14px 0 12px;
+  background:#fff;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.date-option:last-child{border-bottom:0}
+.date-option:active{background:#f7f7f7}
+.date-icon{width:42px;height:42px;flex:0 0 42px;display:block;margin-right:10px;object-fit:contain;image-rendering:auto}
+.date-copy{line-height:1;min-width:0}
+.date-name{font-size:25px;font-weight:500;color:#303030;line-height:29px}
+.date-range{font-size:21px;font-weight:400;color:#8c8c8c;line-height:27px;white-space:nowrap}
+.date-option:focus-visible{outline:2px solid #2188c3;outline-offset:-2px}
+@media (max-width:731px){.screen{will-change:transform}.nav{will-change:transform}.date-menu{will-change:transform}}\n
+/* AETHRONBOT PRIME — orientation-safe drawer and calendar overlay. */
+.aethron-drawer-root{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:500000;pointer-events:none;visibility:hidden;opacity:0;overflow:hidden;overscroll-behavior:none;transition:opacity .18s ease,visibility 0s linear .30s;}
+.aethron-drawer-root.open{pointer-events:auto;visibility:visible;opacity:1;transition:opacity .18s ease,visibility 0s linear 0s;}
+.aethron-drawer-panel{position:absolute;left:0;top:0;width:min(570px,88vw);height:100%;min-height:0;background:#fff;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;transform:translate3d(-100%,0,0);transition:transform .28s cubic-bezier(.22,.61,.36,1);box-shadow:2px 0 5px rgba(0,0,0,.08);z-index:2;scrollbar-width:none;}
+.aethron-drawer-panel::-webkit-scrollbar{width:0;height:0;display:none;}
+.aethron-drawer-root.open .aethron-drawer-panel{transform:translate3d(0,0,0);}
+.aethron-drawer-panel img{display:block;width:100%;height:auto;min-height:0;object-fit:initial;object-position:top left;user-select:none;-webkit-user-drag:none;pointer-events:none;}
+.aethron-drawer-scrim{position:absolute;left:min(570px,88vw);right:0;top:0;width:auto;height:100%;background:rgba(0,0,0,.58);opacity:0;transition:opacity .28s ease;z-index:1;touch-action:manipulation;}
+.aethron-drawer-root.open .aethron-drawer-scrim{opacity:1;}
+@media(max-width:731px){.aethron-drawer-root{will-change:opacity}.aethron-drawer-panel{will-change:transform}}
+.aethron-drawer-panel{overscroll-behavior-y:contain;overflow-y:scroll;touch-action:pan-y;}
+@media (orientation:landscape){.aethron-drawer-panel{height:100dvh;max-height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;}}
+@media (orientation:landscape){
+  .date-overlay-root{height:calc(100vh / var(--scale,1));height:calc(100dvh / var(--scale,1));}
+  .date-menu{top:106px;transform-origin:top right;transform:scale(var(--landscape-popup-scale,1));}
+}
+
+
+
+/* Daily automatic playback state — modeled after the reference recording. */
+.daily-load-overlay{
+  position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+  z-index:600000;pointer-events:none;
+}
+.daily-load-overlay.open{display:flex;}
+.daily-spinner{
+  width:56px;height:56px;border-radius:50%;
+  border:6px solid rgba(33,136,195,.18);
+  border-top-color:#2188c3;border-right-color:#2188c3;
+  animation:dailySpin .78s linear infinite;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.08));
+}
+@keyframes dailySpin{to{transform:rotate(360deg)}}
+
+/* FINAL HD drawer rendering — preserves existing SVGs and interaction logic. */
+.aethron-drawer-panel{
+  image-rendering:auto;
+  image-rendering:-webkit-optimize-contrast;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+  transform:translate3d(-100%,0,0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  transform-style:preserve-3d;
+  -webkit-transform-style:preserve-3d;
+  contain:layout paint;
+}
+.aethron-drawer-panel img{
+  image-rendering:auto;
+  image-rendering:-webkit-optimize-contrast;
+  -ms-interpolation-mode:bicubic;
+  transform:translateZ(0);
+  -webkit-transform:translateZ(0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  filter:none;
+  opacity:1;
+  max-width:100%;
+}
+.aethron-drawer-root.open .aethron-drawer-panel{
+  transform:translate3d(0,0,0);
+}
+.aethron-drawer-scrim{
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+
+/* Professional custom-period selector; isolated from existing History geometry. */
+.custom-period-overlay{
+  position:fixed;inset:0;z-index:610000;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(0,0,0,.10);
+  pointer-events:none;
+}
+.custom-period-overlay.open{display:flex;pointer-events:auto;}
+.custom-period-card{
+  width:min(590px,calc(100vw - 40px));
+  background:#fff;border:1px solid #e2e2e2;
+  box-shadow:0 4px 18px rgba(0,0,0,.14);
+  padding:20px 22px 18px;
+  font-family:Roboto,Arial,sans-serif;
+}
+.custom-period-title{
+  font-size:24px;font-weight:500;color:#303030;
+  margin-bottom:16px;
+}
+.custom-period-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+.custom-period-field label{
+  display:block;font-size:16px;color:#777;margin-bottom:6px;
+}
+.custom-period-field input{
+  width:100%;height:48px;border:1px solid #d9d9d9;
+  padding:0 12px;font-size:18px;color:#303030;
+  font-family:Roboto,Arial,sans-serif;background:#fff;
+}
+.custom-period-actions{
+  display:flex;justify-content:flex-end;gap:10px;margin-top:18px;
+}
+.custom-period-actions button{
+  min-width:100px;height:44px;border:1px solid #d9d9d9;
+  background:#fff;color:#555;font-size:17px;
+}
+.custom-period-actions .apply{
+  background:#2188c3;color:#fff;border-color:#2188c3;
+}
+
+/* Human-eye numeric readability — size-only enhancement; layout/structure unchanged. */
+.sumrow .value{font-size:29px;}
+.sumrow .label{font-size:26px;}
+.balance-entry .amount{font-size:30px;}
+.trade .profit{font-size:28px;line-height:29px;}
+.trade .date{font-size:22px;}
+.day-divider .day-right{font-size:22px;}
+</style>
+</head>
+<body>
+<div class="stage">
+<div class="screen">
+<header class="header">
+<div class="menu" id="dashboardHamburger" role="button" tabindex="0" aria-label="Open quick action menu"><span></span><span></span><span></span></div>
+<div class="header-title"><div class="history">History</div><div class="symbols">All symbols</div></div>
+<div class="header-icons" style="color:#606060">
+<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 108" fill="#666666" fill-rule="evenodd" clip-rule="evenodd"><path d="M 33.00,70.00 33.00,82.00 36.00,84.00 36.00,87.00 38.00,87.00 39.00,90.00 41.00,90.00 43.00,93.00 48.00,93.00 49.00,96.00 53.00,96.00 53.00,82.00 50.00,81.00 50.00,79.00 48.00,78.00 47.00,73.00 47.00,75.00 46.00,76.00 45.00,75.00 45.00,70.00 43.00,70.00 42.00,67.00 39.00,67.00 38.00,70.00 37.00,69.00 36.00,70.00 Z M 121.00,65.00 118.00,64.00 111.00,64.00 104.00,67.00 101.00,67.00 100.00,69.00 96.00,70.00 96.00,78.00 98.00,78.00 101.00,80.00 101.00,90.00 98.00,91.00 98.00,96.00 96.00,97.00 96.00,101.00 93.00,102.00 93.00,107.00 95.00,107.00 96.00,105.00 100.00,104.00 101.00,102.00 103.00,102.00 108.00,96.00 109.00,97.00 110.00,94.00 112.00,93.00 112.00,91.00 115.00,90.00 115.00,88.00 118.00,87.00 119.00,84.00 128.00,84.00 128.00,76.00 125.00,75.00 125.00,70.00 122.00,69.00 Z M 53.00,12.00 51.00,12.00 52.00,13.00 51.00,14.00 46.00,14.00 46.00,16.00 43.00,18.00 42.00,22.00 40.00,23.00 39.00,25.00 39.00,46.00 42.00,47.00 42.00,51.00 44.00,51.00 49.00,57.00 53.00,57.00 53.00,41.00 50.00,40.00 50.00,29.00 53.00,28.00 Z M 61.00,0.00 60.00,3.00 60.00,104.00 62.00,105.00 63.00,107.00 67.00,107.00 69.00,104.00 71.00,104.00 71.00,97.00 72.00,96.00 77.00,96.00 78.00,93.00 82.00,93.00 82.00,91.00 85.00,90.00 86.00,87.00 88.00,86.00 89.00,84.00 89.00,80.00 92.00,79.00 92.00,67.00 90.00,67.00 89.00,64.00 87.00,64.00 86.00,61.00 84.00,61.00 83.00,58.00 82.00,58.00 80.00,55.00 77.00,54.00 77.00,52.00 72.00,52.00 71.00,51.00 71.00,29.00 74.00,28.00 75.00,31.00 77.00,31.00 78.00,34.00 81.00,35.00 82.00,39.00 85.00,39.00 87.00,36.00 89.00,36.00 89.00,32.00 92.00,31.00 92.00,30.00 89.00,28.00 89.00,22.00 87.00,22.00 85.00,18.00 82.00,17.00 80.00,14.00 75.00,14.00 74.00,12.00 73.00,14.00 71.00,12.00 71.00,3.00 69.00,3.00 68.00,0.00 Z M 72.00,68.00 73.00,69.00 74.00,68.00 75.00,69.00 75.00,72.00 78.00,73.00 78.00,81.00 75.00,82.00 74.00,84.00 71.00,83.00 71.00,69.00 Z M 35.00,0.00 32.00,3.00 28.00,3.00 27.00,5.00 24.00,5.00 24.00,7.00 21.00,8.00 20.00,11.00 18.00,11.00 16.00,17.00 12.00,20.00 3.00,20.00 4.00,21.00 1.00,22.00 0.00,24.00 3.00,26.00 4.00,35.00 7.00,37.00 7.00,40.00 8.00,39.00 10.00,41.00 10.00,43.00 21.00,43.00 22.00,40.00 27.00,40.00 29.00,37.00 30.00,39.00 30.00,37.00 32.00,36.00 33.00,34.00 35.00,34.00 35.00,29.00 31.00,29.00 30.00,26.00 27.00,25.00 27.00,22.00 30.00,21.00 30.00,14.00 32.00,13.00 32.00,8.00 35.00,7.00 35.00,5.00 38.00,3.00 36.00,3.00 Z"/></svg>
+<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 118 95" fill="#666666" fill-rule="evenodd" clip-rule="evenodd"><path d="M 82.00,0.00 82.00,2.00 79.00,3.00 78.00,6.00 76.00,6.00 76.00,8.00 74.00,9.00 74.00,11.00 71.00,12.00 70.00,14.00 68.00,14.00 68.00,16.00 65.00,17.00 64.00,20.00 61.00,21.00 60.00,24.00 58.00,24.00 58.00,26.00 56.00,27.00 56.00,29.00 53.00,31.00 53.00,36.00 57.00,38.00 58.00,41.00 60.00,41.00 60.00,39.00 61.00,38.00 64.00,38.00 64.00,36.00 67.00,35.00 68.00,32.00 70.00,32.00 71.00,30.00 73.00,30.00 73.00,28.00 76.00,26.00 77.00,23.00 79.00,24.00 79.00,93.00 82.00,94.00 88.00,94.00 90.00,93.00 90.00,23.00 91.00,22.00 93.00,23.00 94.00,26.00 96.00,26.00 98.00,28.00 97.00,29.00 99.00,29.00 104.00,33.00 106.00,36.00 106.00,38.00 111.00,38.00 112.00,41.00 113.00,41.00 115.00,38.00 117.00,38.00 117.00,30.00 115.00,30.00 114.00,27.00 112.00,27.00 111.00,24.00 108.00,23.00 108.00,21.00 105.00,19.00 103.00,15.00 98.00,12.00 97.00,9.00 95.00,9.00 94.00,7.00 88.00,2.00 89.00,0.00 Z M 29.00,0.00 29.00,2.00 26.00,3.00 26.00,70.00 23.00,71.00 22.00,68.00 20.00,68.00 19.00,65.00 17.00,65.00 16.00,62.00 14.00,62.00 13.00,60.00 11.00,60.00 8.00,56.00 6.00,56.00 5.00,59.00 4.00,57.00 2.00,60.00 0.00,60.00 0.00,64.00 2.00,65.00 3.00,70.00 8.00,71.00 9.00,72.00 9.00,76.00 10.00,76.00 11.00,78.00 13.00,78.00 14.00,81.00 17.00,82.00 18.00,85.00 20.00,85.00 21.00,88.00 23.00,88.00 24.00,91.00 25.00,91.00 26.00,93.00 29.00,94.00 37.00,94.00 40.00,93.00 40.00,92.00 42.00,91.00 42.00,89.00 45.00,88.00 46.00,83.00 49.00,82.00 50.00,79.00 52.00,79.00 53.00,77.00 55.00,77.00 58.00,73.00 58.00,71.00 61.00,70.00 62.00,67.00 64.00,67.00 64.00,59.00 62.00,59.00 61.00,57.00 59.00,56.00 55.00,60.00 53.00,60.00 52.00,62.00 50.00,62.00 50.00,64.00 47.00,65.00 47.00,67.00 44.00,68.00 44.00,70.00 42.00,72.00 40.00,70.00 39.00,67.00 40.00,66.00 40.00,60.00 38.00,59.00 38.00,54.00 40.00,52.00 40.00,50.00 38.00,48.00 38.00,47.00 40.00,46.00 40.00,38.00 38.00,37.00 39.00,35.00 38.00,33.00 38.00,28.00 40.00,26.00 39.00,23.00 40.00,22.00 40.00,13.00 38.00,12.00 38.00,3.00 37.00,0.00 Z M 38.00,21.00 39.00,20.00 40.00,22.00 39.00,23.00 Z"/></svg>
+<svg class="icon calendar-trigger" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 123" fill="#666666" fill-rule="evenodd" clip-rule="evenodd"><path d="M 66.00,80.00 65.00,85.00 63.00,86.00 62.00,88.00 65.00,89.00 65.00,92.00 67.00,92.00 69.00,94.00 77.00,94.00 77.00,93.00 79.00,92.00 79.00,83.00 77.00,82.00 78.00,80.00 Z M 56.00,80.00 53.00,80.00 52.00,79.00 50.00,80.00 46.00,80.00 45.00,83.00 45.00,92.00 46.00,92.00 47.00,94.00 55.00,94.00 57.00,92.00 59.00,92.00 59.00,83.00 57.00,83.00 Z M 24.00,80.00 24.00,92.00 26.00,92.00 27.00,94.00 34.00,94.00 36.00,92.00 38.00,92.00 38.00,83.00 36.00,83.00 35.00,80.00 32.00,80.00 31.00,79.00 Z M 93.00,78.00 92.00,80.00 89.00,80.00 89.00,82.00 86.00,83.00 86.00,85.00 83.00,86.00 83.00,88.00 85.00,88.00 86.00,89.00 86.00,92.00 88.00,92.00 90.00,94.00 97.00,94.00 98.00,92.00 100.00,92.00 100.00,89.00 101.00,88.00 100.00,87.00 100.00,82.00 98.00,83.00 97.00,82.00 98.00,80.00 94.00,80.00 Z M 88.00,54.00 88.00,55.00 85.00,57.00 86.00,59.00 83.00,60.00 83.00,61.00 85.00,61.00 86.00,64.00 89.00,65.00 89.00,67.00 92.00,68.00 97.00,67.00 98.00,65.00 100.00,65.00 100.00,61.00 101.00,60.00 103.00,61.00 103.00,60.00 100.00,59.00 100.00,56.00 98.00,56.00 97.00,53.00 90.00,53.00 Z M 66.00,54.00 64.00,60.00 65.00,61.00 65.00,64.00 67.00,65.00 68.00,67.00 71.00,67.00 72.00,68.00 77.00,67.00 77.00,66.00 79.00,65.00 79.00,57.00 77.00,56.00 77.00,53.00 69.00,53.00 Z M 46.00,54.00 45.00,57.00 45.00,65.00 46.00,67.00 50.00,67.00 52.00,68.00 53.00,67.00 56.00,67.00 57.00,65.00 59.00,65.00 59.00,57.00 57.00,57.00 55.00,53.00 48.00,53.00 Z M 24.00,54.00 24.00,67.00 27.00,67.00 28.00,68.00 38.00,67.00 38.00,56.00 36.00,57.00 34.00,53.00 27.00,53.00 Z M 4.00,18.00 3.00,23.00 1.00,24.00 1.00,36.00 3.00,37.00 1.00,39.00 1.00,50.00 2.00,51.00 1.00,53.00 1.00,100.00 3.00,102.00 1.00,103.00 0.00,105.00 1.00,106.00 1.00,109.00 3.00,112.00 2.00,114.00 3.00,115.00 3.00,118.00 5.00,118.00 6.00,121.00 109.00,121.00 111.00,122.00 112.00,121.00 118.00,121.00 118.00,119.00 121.00,118.00 121.00,115.00 124.00,114.00 124.00,24.00 121.00,23.00 121.00,18.00 116.00,18.00 115.00,15.00 101.00,15.00 101.00,20.00 98.00,21.00 97.00,24.00 90.00,25.00 89.00,27.00 86.00,27.00 85.00,25.00 83.00,25.00 82.00,27.00 80.00,27.00 79.00,25.00 77.00,24.00 72.00,24.00 71.00,23.00 71.00,18.00 68.00,17.00 69.00,15.00 70.00,16.00 69.00,15.00 54.00,15.00 53.00,20.00 51.00,21.00 51.00,23.00 48.00,24.00 45.00,27.00 39.00,27.00 38.00,26.00 40.00,25.00 36.00,25.00 35.00,27.00 31.00,27.00 30.00,25.00 25.00,24.00 24.00,23.00 23.00,15.00 10.00,15.00 9.00,18.00 Z M 14.00,42.00 17.00,41.00 18.00,38.00 106.00,38.00 107.00,41.00 109.00,41.00 110.00,44.00 112.00,46.00 112.00,102.00 110.00,104.00 110.00,106.00 106.00,109.00 18.00,109.00 17.00,107.00 14.00,106.00 Z M 1.00,34.00 2.00,33.00 3.00,35.00 2.00,36.00 Z M 90.00,26.00 91.00,25.00 93.00,26.00 92.00,27.00 Z M 80.00,0.00 80.00,2.00 78.00,3.00 78.00,5.00 75.00,7.00 74.00,10.00 75.00,14.00 78.00,15.00 78.00,17.00 80.00,18.00 80.00,20.00 85.00,20.00 86.00,21.00 87.00,20.00 92.00,20.00 92.00,18.00 94.00,17.00 94.00,3.00 92.00,3.00 91.00,0.00 Z M 27.00,7.00 27.00,14.00 28.00,17.00 30.00,18.00 30.00,20.00 36.00,20.00 37.00,21.00 39.00,20.00 45.00,20.00 46.00,17.00 49.00,17.00 49.00,16.00 48.00,17.00 47.00,15.00 49.00,14.00 49.00,7.00 48.00,7.00 47.00,4.00 44.00,2.00 44.00,0.00 33.00,0.00 33.00,2.00 30.00,3.00 Z"/></svg>
+</div>
+<button class="calendar-hit" id="calendarHit" type="button" aria-label="Select date range"></button>
+</header>
+
+<div class="history-scroll" id="historyScroll">
+<section class="summary">
+  <div class="sumrow profit"><span class="label">Profit:</span><span class="leader"></span><span class="value" id="profitValue">0.00</span></div>
+  <div class="sumrow"><span class="label">Deposit:</span><span class="leader"></span><span class="value" id="depositValue">500.00</span></div>
+  <div class="sumrow withdrawal"><span class="label">Withdrawal:</span><span class="leader"></span><span class="value" id="withdrawalValue">0.00</span></div>
+  <div class="sumrow"><span class="label">Balance:</span><span class="leader"></span><span class="value" id="balanceValue">500.00</span></div>
+</section>
+<section class="balance-entry">
+  <div class="label">Balance</div>
+  <div class="date" id="balanceDate"></div>
+  <div class="amount" id="balanceAmount">500.00</div>
+</section>
+<main class="trades" id="trades"></main>
+</div>
+</div>
+
+<nav class="nav" aria-label="Bottom navigation">
+<div class="nav-item" onclick="go('quotes')" role="button" tabindex="0" aria-label="Quotes"><svg viewBox="0 0 45 40" xmlns="http://www.w3.org/2000/svg" fill="#6a6a6a" fill-rule="evenodd" clip-rule="evenodd"><path d="M 20.00,12.00 17.00,11.00 5.00,23.00 0.00,22.00 0.00,38.00 1.00,39.00 5.00,39.00 10.00,37.00 16.00,37.00 16.00,35.00 14.00,32.00 26.00,21.00 26.00,18.00 23.00,16.00 Z M 44.00,0.00 26.00,1.00 22.00,3.00 26.00,7.00 23.00,11.00 24.00,13.00 30.00,8.00 27.00,5.00 31.00,3.00 40.00,3.00 41.00,4.00 41.00,16.00 40.00,17.00 36.00,15.00 20.00,31.00 20.00,32.00 24.00,31.00 36.00,19.00 38.00,19.00 40.00,22.00 43.00,22.00 43.00,16.00 44.00,15.00 Z"/></svg></div>
+<div class="nav-item" onclick="go('chart')" role="button" tabindex="0" aria-label="Chart"><svg viewBox="0 0 47 46" xmlns="http://www.w3.org/2000/svg" fill="#6a6a6a" fill-rule="evenodd" clip-rule="evenodd"><path d="M 22.00,6.00 21.00,7.00 21.00,11.00 18.00,12.00 16.00,14.00 16.00,25.00 17.00,26.00 16.00,27.00 16.00,34.00 17.00,36.00 20.00,36.00 21.00,37.00 21.00,45.00 24.00,45.00 25.00,44.00 25.00,37.00 26.00,36.00 29.00,36.00 30.00,34.00 29.00,31.00 30.00,30.00 30.00,24.00 29.00,23.00 30.00,22.00 30.00,17.00 29.00,16.00 30.00,15.00 28.00,12.00 25.00,11.00 25.00,7.00 Z M 21.00,16.00 25.00,16.00 26.00,17.00 26.00,31.00 24.00,33.00 22.00,33.00 20.00,31.00 20.00,17.00 Z M 39.00,0.00 38.00,1.00 38.00,4.00 35.00,5.00 33.00,7.00 33.00,25.00 35.00,27.00 38.00,28.00 38.00,34.00 41.00,34.00 42.00,33.00 42.00,28.00 46.00,26.00 46.00,6.00 42.00,4.00 42.00,1.00 41.00,0.00 Z M 5.00,0.00 4.00,1.00 4.00,4.00 0.00,6.00 0.00,26.00 4.00,28.00 4.00,32.00 7.00,33.00 8.00,32.00 8.00,29.00 10.00,27.00 12.00,27.00 12.00,6.00 8.00,4.00 8.00,1.00 7.00,0.00 Z"/></svg></div>
+<div class="nav-item" onclick="go('trade')" role="button" tabindex="0" aria-label="Trade"><svg viewBox="0 0 44 42" xmlns="http://www.w3.org/2000/svg" fill="#6a6a6a" fill-rule="evenodd" clip-rule="evenodd"><path d="M 27.00,30.00 24.00,28.00 13.00,39.00 13.00,40.00 16.00,41.00 24.00,33.00 25.00,33.00 Z M 16.00,29.00 13.00,28.00 9.00,33.00 3.00,38.00 3.00,41.00 5.00,41.00 8.00,39.00 Z M 43.00,2.00 41.00,0.00 40.00,1.00 36.00,1.00 35.00,0.00 32.00,2.00 33.00,4.00 36.00,5.00 20.00,21.00 17.00,19.00 16.00,17.00 13.00,17.00 0.00,29.00 0.00,32.00 2.00,32.00 14.00,21.00 19.00,25.00 21.00,25.00 39.00,7.00 40.00,8.00 40.00,11.00 43.00,11.00 Z"/></svg></div>
+<div class="nav-item active" onclick="go('dashboard')" role="button" tabindex="0" aria-label="History"><svg viewBox="0 0 46 42" xmlns="http://www.w3.org/2000/svg" fill="#3F9FE8" fill-rule="evenodd" clip-rule="evenodd"><path d="M 8.00,0.00 5.00,4.00 1.00,14.00 1.00,21.00 0.00,22.00 0.00,30.00 1.00,31.00 1.00,34.00 0.00,35.00 1.00,36.00 1.00,39.00 5.00,41.00 6.00,40.00 40.00,40.00 41.00,41.00 45.00,38.00 45.00,18.00 40.00,3.00 37.00,0.00 Z M 5.00,15.00 8.00,9.00 8.00,7.00 12.00,3.00 33.00,3.00 36.00,5.00 41.00,18.00 39.00,20.00 31.00,20.00 29.00,26.00 26.00,29.00 22.00,30.00 19.00,29.00 16.00,26.00 14.00,20.00 7.00,20.00 5.00,18.00 Z"/></svg></div>
+<div class="nav-item" onclick="go('messages')" role="button" tabindex="0" aria-label="Messages"><svg viewBox="0 0 47 45" xmlns="http://www.w3.org/2000/svg" fill="#6a6a6a" fill-rule="evenodd" clip-rule="evenodd"><path d="M 31.00,16.00 30.00,19.00 31.00,19.00 32.00,21.00 30.00,22.00 30.00,24.00 35.00,26.00 34.00,27.00 31.00,27.00 30.00,30.00 39.00,30.00 39.00,28.00 35.00,26.00 39.00,24.00 37.00,20.00 39.00,17.00 38.00,16.00 Z M 18.00,16.00 17.00,17.00 17.00,30.00 25.00,30.00 26.00,29.00 26.00,17.00 25.00,16.00 Z M 21.00,20.00 22.00,21.00 22.00,25.00 21.00,26.00 20.00,25.00 20.00,21.00 Z M 17.00,10.00 17.00,11.00 19.00,12.00 38.00,12.00 39.00,11.00 37.00,8.00 19.00,8.00 Z M 11.00,0.00 9.00,3.00 9.00,40.00 8.00,41.00 6.00,41.00 3.00,38.00 4.00,37.00 3.00,34.00 4.00,33.00 4.00,13.00 6.00,12.00 6.00,9.00 3.00,9.00 0.00,12.00 0.00,41.00 2.00,44.00 45.00,44.00 46.00,43.00 46.00,2.00 45.00,0.00 Z M 14.00,4.00 16.00,3.00 17.00,4.00 18.00,3.00 20.00,4.00 21.00,3.00 39.00,3.00 43.00,5.00 43.00,39.00 39.00,41.00 16.00,41.00 13.00,39.00 12.00,37.00 13.00,36.00 12.00,35.00 13.00,33.00 12.00,32.00 12.00,29.00 13.00,28.00 12.00,26.00 12.00,16.00 13.00,15.00 12.00,13.00 12.00,10.00 13.00,9.00 12.00,7.00 Z"/></svg></div>
+<div class="nav-item" role="button" tabindex="0" aria-label="More"><svg viewBox="0 0 46 45" xmlns="http://www.w3.org/2000/svg" fill="#6a6a6a" fill-rule="evenodd" clip-rule="evenodd"><path d="M 38.00,5.00 28.00,0.00 16.00,0.00 9.00,3.00 3.00,9.00 0.00,15.00 0.00,25.00 5.00,33.00 5.00,37.00 3.00,41.00 1.00,42.00 1.00,44.00 7.00,44.00 16.00,40.00 29.00,40.00 34.00,38.00 41.00,32.00 44.00,26.00 45.00,19.00 44.00,18.00 44.00,14.00 Z M 32.00,17.00 34.00,17.00 36.00,19.00 36.00,22.00 34.00,24.00 32.00,24.00 30.00,22.00 30.00,19.00 Z M 21.00,17.00 23.00,17.00 25.00,19.00 25.00,22.00 23.00,24.00 21.00,24.00 19.00,22.00 19.00,19.00 Z M 11.00,17.00 15.00,19.00 15.00,22.00 13.00,24.00 11.00,24.00 8.00,21.00 Z"/></svg></div>
+</nav>
+</div>
+<!-- Isolated calendar overlay: does not affect any History page geometry. -->
+<div class="date-overlay-root" id="dateOverlayRoot" aria-hidden="true">
+  <div class="date-menu-backdrop" id="dateMenuBackdrop" onclick="closeDateMenu()"></div>
+  <div class="date-menu" id="dateMenu" role="dialog" aria-modal="false" aria-label="Date range selector">
+
+  <div class="date-option" tabindex="0" data-period="Today" onclick="selectPeriod('Today')" onkeydown="optionKey(event,'Today')">
+    <img class="date-icon" src="data:image/png;base64,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" alt="" aria-hidden="true">
+    <div class="date-copy"><div class="date-name">Today</div><div class="date-range"><span id="rangeToday"></span></div></div><span class="date-check" aria-hidden="true">✓</span>
+  </div>
+
+  <div class="date-option" tabindex="0" data-period="Last week" onclick="selectPeriod('Last week')" onkeydown="optionKey(event,'Last week')">
+    <img class="date-icon" src="data:image/png;base64,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" alt="" aria-hidden="true">
+    <div class="date-copy"><div class="date-name">Last week</div><div class="date-range"><span id="rangeLastWeek"></span></div></div><span class="date-check" aria-hidden="true">✓</span>
+  </div>
+
+  <div class="date-option" tabindex="0" data-period="Last month" onclick="selectPeriod('Last month')" onkeydown="optionKey(event,'Last month')">
+    <img class="date-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAIAAABKoV4MAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAHU0lEQVR4nJ1Ya3PasBKVZFk2xoaYgEPSdjrt//9H6WQyTQsBgwM2+IH1uB9OqqsEms69+sCAvdLunn0dQY0x5C/LGGPfUkrxhFKK767Y+RN31weLf/zaPcv9efFcvHI/Pc/7P9WbP8v+/NgVq9VV/8/FXWWMMatJSkkI0VqfTqeu6/q+F0KEYRiGIaVUaw1hLPxUSh2PR61127bGmDiOB4MB51xrbYwBEu5GYwy34bTOGWMgRCmtqmq1WhVF0TQN5zzLstvb2zRNIay1JoQwxuBrVVXL5bIsy6ZphBDT6XQ2m43HY8YYJK2f2E4p5ZRSF1h7IiGkruunp6cfP34URdG2LWNsu90yxpIk4Zy7SaCUatt2uVze399vt9umaYIgmE6nUkrf9+M4th7bbMB27sYJuoGEUgqur9frpmn6vofY3d1d0zRxHLuAMcaaptlsNuv1+nA49H2PLUmSXF9fx3F8DrvWmlLKreturimltNZKKXyxe/q+RyCVUhZ2pZTv+4QQKaWU0gYO8tiC577vQxdjDDC8pl7f98gvqKSUBkHAOQ+CgFJ6Op201pzz4XAYBIEx5nA4NE0DDyilw+HQGDMYDIQQVVUppYQQQRDA77Is67rWWgdBIITgnAshYDEnhAC3oijquj6dTn3fR1F0c3NzdXWVZdlut/N9X2s9HA6zLBuPx23bAmckhOd5d3d3k8lkOp1++vTJ87y2bSE8n88ppc/Pz8/Pz23b+r4fRVEURVdXV2majkYjrpQqy/LXr19PT09lWbZtezqdrq+vKaWz2ezLly+e5202m77vB4NBlmWj0aiu68Vi8fj4eDgcADXnfDweZ1lGKR2Px0iOm5sbCG82m4eHh5eXF0LIYDBIkuT79+/AjNd1XZbler3O85wQcjqdlFJFUeR5nuf5fD7//PnzdDrVWnue5/v+fr9fLpe73Q6SlFLGWFEUm80mCILJZDIcDhHmIAhOp9Nqtcrz/Hg8SikppXVdo4Km06lSihtjuq47Ho9d13meZ5vP09PTy8vLaDSK49j3faSYUqppmqqqqqpCb0GeLpfLruseHx9fq5m/plTXdfv9vmkapRQeSinrugbGUkrueZ6UEhK2iowxdV0fj8eiKMIwFEKgctq2RXpDDCciw7fb7Xq9RtIJIZRSkKzrmnPueZ5bQdCttebwFTkMGznnXdfhi22lcAuJhuLxPA+GonTxHWUppUTFRlGEVzAdEYTRKBmO/diGDcPhMIoiaHo3snDQ+RRGsBEg6w/kEdOu63a7XVVVaF9oDK/q7UGe583n8yzL0jQFYpCzxvZ9bweEO9kgprVGe0BCuN0M+f/z58/VauX2Nw5bACnn/Pb29tu3b1Bv+7ntcdYOi4eLBHIC+YtjpZSYDm3bpmkqpdzv90opu4vjByLHGIvj+Pr62vM8pRRaEKKIBactYNYUpRTCZGuBUiqEQLMSQuBztVoJIZqmsZnEMY8RKs/zgiBAgvR9v1gs0K3Qujnn8I+8ZTuA3UYE5qLuwzD89OlTlmVxHMOUKIrQKyHM7RHuquv6+fn5/v5+sVgAgL7vXX5xcVkkQC6EEEmSAIYwDN00slsuq0cd//79O89zoIqeRf9FHYlDnLqu67ouiqLJZDKbzdzK/K96N3fs6W3blmUJ5oTqdwVcAmj3XqSg6JLH47Hve4xK23zeeH8OoJTSEjSEE8lyUT1xqKaVgaa2bUE9MLvf2ceoQ/HsU1Q8Gh/5Qz5t7O2WdwloT6dvaaNtQe+sJy7TJW/vFdj2bhBcpM8ue7TE1Qq7ffp88XenWGVus8NC9p0fQd+SVes9pRRVAAwwY1wUCVIPp7usGSTCYm47uQsVOUs0Nzdfe6pD8qHinaH/uGS5qW75/EUMLr5CJrq1QwixAb2g3g2B9cZtahetdGPvHuKCby5dTy97b2N/DsZFC85zHsterIxzs3kT+795Y2sGBXOu2EX74ivyZ0giBJYHXCg8Vytx0LbjDt/PFZyb4i6UrtsSyN/q3u1luCEkSYL2h9qFEeR/+T+BMTYcDuM4BqO0eFz23q4kSdI0BUHABQXs42LP/2AU4bIxmUx83+/7/oJ6N64gZeAnWZYppUajUVmWgN1yivPldh4I+74vhIjjeD6fp2mK0gcFdVv4a9tBaVqyQCmNouju7m40GnVdZ8vpom7ytiJsn8HVOgiCwWBAKa3ruus6+0cEutxrVzLGSCnBR4uiGI/HoOvj8djl5x/M+3fTD6kOfyilXddtt9s8zw+Hw+l0skdxWxt933uet16vhRCz2Qy3UXeQf6D+3by3Ysh8xtjhcFgsFkVRGGPCMATbZ4xxoITMMsbked627cPDA6YtevUHTp+rdyce6kVrXVXVfr+v61pKGYYhdDPGOGNsMBjgLmeM2e/3VVVh3uPTcviPwXeLAuqRQ9jYdR39c0ninMdxDGg5Y2w0Gn39+pUQ0jTNbrejDnN1/+sifxk2Vr1V5kICwgIOjaPSNL29vU2ShDH2HxEu3KlGwx86AAAAAElFTkSuQmCC" alt="" aria-hidden="true">
+    <div class="date-copy"><div class="date-name">Last month</div><div class="date-range"><span id="rangeLastMonth"></span></div></div><span class="date-check" aria-hidden="true">✓</span>
+  </div>
+
+  <div class="date-option" tabindex="0" data-period="Last 3 months" onclick="selectPeriod('Last 3 months')" onkeydown="optionKey(event,'Last 3 months')">
+    <img class="date-icon" src="data:image/png;base64,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" alt="" aria-hidden="true">
+    <div class="date-copy"><div class="date-name">Last 3 months</div><div class="date-range"><span id="rangeLast3Months"></span></div></div><span class="date-check" aria-hidden="true">✓</span>
+  </div>
+
+  <div class="date-option custom" tabindex="0" data-period="Custom period" onclick="selectPeriod('Custom period')" onkeydown="optionKey(event,'Custom period')">
+    <img class="date-icon" src="data:image/png;base64,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" alt="" aria-hidden="true">
+    <div class="date-copy"><div class="date-name">Custom period</div><div class="date-range"><span id="rangeCustom"></span></div></div><span class="date-check" aria-hidden="true">✓</span>
+  </div>
+</div>
+
+</div>
+  </div>
+
+
+
+<div class="custom-period-overlay" id="customPeriodOverlay" aria-hidden="true">
+  <div class="custom-period-card" role="dialog" aria-modal="true" aria-label="Custom period">
+    <div class="custom-period-title">Custom period</div>
+    <div class="custom-period-grid">
+      <div class="custom-period-field">
+        <label for="customStartInput">From</label>
+        <input id="customStartInput" type="date">
+      </div>
+      <div class="custom-period-field">
+        <label for="customEndInput">To</label>
+        <input id="customEndInput" type="date">
+      </div>
+    </div>
+    <div class="custom-period-actions">
+      <button type="button" onclick="closeCustomPeriod()">Cancel</button>
+      <button type="button" class="apply" onclick="applyCustomPeriod()">Apply</button>
+    </div>
+  </div>
+</div>
+<div class="daily-load-overlay" id="dailyLoadOverlay" aria-hidden="true">
+  <div class="daily-spinner" aria-label="Loading"></div>
+</div>
+<script>
+(function(){
+  let raf=0;
+  function fit(){
+    const vv=window.visualViewport;
+    const width=vv && vv.width ? vv.width : window.innerWidth;
+    const height=vv && vv.height ? vv.height : window.innerHeight;
+    const scale=Math.min(1,width/732);
+    document.documentElement.style.setProperty('--scale',String(scale));
+    document.documentElement.style.setProperty('--viewport-height',String(height));
+    document.documentElement.style.setProperty('--landscape-popup-scale',String(Math.min(1,Math.max(.5,(height-106)/(414+8)))));
+  }
+  function scheduleFit(){cancelAnimationFrame(raf);raf=requestAnimationFrame(fit);}
+  fit();
+  window.addEventListener('resize',scheduleFit,{passive:true});
+  window.addEventListener('orientationchange',function(){setTimeout(scheduleFit,80)},{passive:true});
+  if(window.visualViewport) window.visualViewport.addEventListener('resize',scheduleFit,{passive:true});
+})();
+
+const dateMenu=document.getElementById('dateMenu');
+const dateMenuBackdrop=document.getElementById('dateMenuBackdrop');
+const dateOverlayRoot=document.getElementById('dateOverlayRoot');
+const calendarHit=document.getElementById('calendarHit');
+
+const historyScroll=document.getElementById('historyScroll');
+const tradesEl=document.getElementById('trades');
+const profitValue=document.getElementById('profitValue');
+const depositValue=document.getElementById('depositValue');
+const withdrawalValue=document.getElementById('withdrawalValue');
+const balanceValue=document.getElementById('balanceValue');
+const balanceDate=document.getElementById('balanceDate');
+const balanceAmount=document.getElementById('balanceAmount');
+
+const DEPOSIT=500;
+const MAX_VISIBLE_TRADES=120;
+
+/* AETHRONBOT PRIME is retained as the simulator's execution/source identity.
+   This is a local history simulation only; it does not place broker orders. */
+
+const SIM_BOT='AETHRONBOT PRIME';
+const FIRST_HISTORY_DATE=new Date('2026-08-20T00:00:00');
+
+/* DAILY RESET MODEL — each calendar day receives an independent opening
+   deposit. The previous day's ending balance is never carried into the next
+   day. These are the same deposit choices used by the reference method. */
+const RESET_DEPOSITS=[120,180,190,300,400,450,500,700,800];
+const PROFIT_TARGETS=[1800,2100,2400,2800,3100,3400,3700,4200,4600,5000,5400,5800,6000,6400,7000];
+const DAILY_LOSS_RATE_MIN=0.10;
+const DAILY_LOSS_RATE_MAX=0.10;
+const DAILY_MIN_LOSSES=5;
+const DAILY_MAX_LOSSES=10;
+const WITHDRAWALS=0;
+const DAILY_AUTO_START=true;
+const ADAPTIVE_SELECTOR_VERSION='AETHRON-ADAPTIVE-V3-TICK-MICROSTRUCTURE';
+const LOADER_MS=1050;
+const AUTO_START_DELAY_MS=350;
+const SYMBOL_START_GAP_MS=920;
+const OPPORTUNITY_THRESHOLD=0.74;
+const MAX_DAILY_TRADES=90;
+const MIN_DAILY_TRADES=48;
+const PER_SYMBOL_COOLDOWN_MIN=28;
+const PER_SYMBOL_COOLDOWN_MAX=78;
+const MAX_OPEN_POSITIONS=2;
+const RISK_PER_TRADE=0.0025;
+const MAX_DAILY_DRAWDOWN=0.045;
+const MAX_CONSECUTIVE_LOSSES=5;
+const LOSS_STREAK_RISK_REDUCTION=0.55;
+const MIN_SIGNAL_EDGE=0.42;
+let activeSimulationDayKey=null;
+let activeRows=[];
+let autoCycleTimer=null;
+let loaderTimer=null;
+let dailyRunning=false;
+let liveExecutedRows=[];
+
+/* ============================================================
+   AETHRONBOT — SHARED LIVE SESSION V2
+   One persistent session is shared between History and Chart.
+   Only the page holding the live-owner lease may advance the session.
+   Historical dates never touch this state.
+   ============================================================ */
+const LIVE_STATE_KEY='ARMORBOT_LIVE_STATE_V3';
+const LIVE_OWNER_KEY='ARMORBOT_LIVE_OWNER_V3';
+const LIVE_OWNER_TTL=5000;
+const LIVE_OWNER_HEARTBEAT_MS=1500;
+const LIVE_SCHEDULE_DAYS=30;
+const PAGE_INSTANCE_ID='DASH-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
+let liveOwnerHeartbeat=null;
+
+function safeIsoDate(v){
+  const d=v instanceof Date?v:new Date(v);
+  return Number.isNaN(d.getTime())?new Date():d;
+}
+function serializeLiveTrade(t){
+  const d=safeIsoDate(t.closed);
+  const o=safeIsoDate(t.opened);
+  return {
+    id:String(t&&t.id||''),symbol:String(t&&t.symbol||'BTCUSDm'),
+    action:String(t&&t.action||'buy'),bias:Number(t&&t.bias)||0,
+    lot:String(t&&t.lot||'0.01'),lotMultiplier:Number(t&&t.lotMultiplier)||0,
+    entry:Number(t&&t.entry)||0,exit:Number(t&&t.exit)||0,
+    high:Number(t&&t.high)||0,low:Number(t&&t.low)||0,
+    tp:Number(t&&t.tp)||0,sl:Number(t&&t.sl)||0,
+    digits:Number.isFinite(Number(t&&t.digits))?Number(t.digits):2,
+    opened:o.toISOString(),closed:d.toISOString(),
+    spreadOpen:Number(t&&t.spreadOpen)||0,spreadClose:Number(t&&t.spreadClose)||0,
+    slippageOpen:Number(t&&t.slippageOpen)||0,slippageClose:Number(t&&t.slippageClose)||0,
+    closeReason:String(t&&t.closeReason||'market'),tickCount:Number(t&&t.tickCount)||0,
+    adaptiveScore:Number(t&&t.adaptiveScore)||0,signalEdge:Number(t&&t.signalEdge)||0,
+    modelWinProb:Number(t&&t.modelWinProb)||0,regime:String(t&&t.regime||''),
+    grossProfit:Number(t&&t.grossProfit)||0,commission:Number(t&&t.commission)||0,swap:Number(t&&t.swap)||0,
+    profit:Number(t&&t.profit)||0,runningBalance:Number(t&&t.runningBalance)||0,
+    sequenceIndex:Number(t&&t.sequenceIndex)||0,
+    result:String(t&&t.result||((Number(t&&t.profit)||0)>=0?'win':'loss'))
+  };
+}
+function deserializeLiveTrade(t){
+  const x=t||{};
+  const symbol=String(x.symbol||'BTCUSDm');
+  const digits=Number.isFinite(Number(x.digits))?Number(x.digits):
+    (symbol.indexOf('JPY')>=0?3:(symbol.indexOf('EURUSD')>=0||symbol.indexOf('GBPUSD')>=0||symbol.indexOf('AUDUSD')>=0||symbol.indexOf('NZDUSD')>=0||symbol.indexOf('USDCAD')>=0?5:2));
+  const profit=Number(x.profit)||0;
+  return {...x,id:String(x.id||''),symbol,action:String(x.action||'buy').toLowerCase(),
+    lot:String(x.lot||'0.01'),digits,entry:Number(x.entry)||0,exit:Number(x.exit)||0,
+    high:Number(x.high)||0,low:Number(x.low)||0,tp:Number(x.tp)||0,sl:Number(x.sl)||0,profit,
+    opened:safeIsoDate(x.opened),closed:safeIsoDate(x.closed),
+    commission:Number(x.commission)||0,swap:Number(x.swap)||0,runningBalance:Number(x.runningBalance)||0,
+    closeReason:String(x.closeReason||'market'),sequenceIndex:Number(x.sequenceIndex)||0,
+    result:String(x.result||(profit>=0?'win':'loss'))};
+}
+function readLiveState(){
+  try{
+    const raw=localStorage.getItem(LIVE_STATE_KEY); if(!raw)return null;
+    const s=JSON.parse(raw);
+    if(!s||s.version!==2||!s.day||!Array.isArray(s.plannedTrades)||!Array.isArray(s.schedule))return null;
+    return s;
+  }catch(e){return null;}
+}
+function writeLiveState(s){try{localStorage.setItem(LIVE_STATE_KEY,JSON.stringify(s));return true;}catch(e){return false;}}
+function readLiveOwner(){try{const raw=localStorage.getItem(LIVE_OWNER_KEY);if(!raw)return null;const o=JSON.parse(raw);return o&&o.owner&&Number(o.expiresAt)?o:null;}catch(e){return null;}}
+function ownsLiveOwner(){const o=readLiveOwner();return !!o&&o.owner===PAGE_INSTANCE_ID&&Number(o.expiresAt)>Date.now();}
+function claimLiveOwner(force=false){
+  try{
+    const current=readLiveOwner();
+    if(!force&&current&&current.owner!==PAGE_INSTANCE_ID&&current.expiresAt>Date.now())return false;
+    const candidate={owner:PAGE_INSTANCE_ID,expiresAt:Date.now()+LIVE_OWNER_TTL};
+    localStorage.setItem(LIVE_OWNER_KEY,JSON.stringify(candidate));
+    const verify=readLiveOwner();
+    if(verify&&verify.owner===PAGE_INSTANCE_ID){
+      if(!liveOwnerHeartbeat) liveOwnerHeartbeat=setInterval(()=>{
+        if(!ownsLiveOwner())return;
+        try{localStorage.setItem(LIVE_OWNER_KEY,JSON.stringify({owner:PAGE_INSTANCE_ID,expiresAt:Date.now()+LIVE_OWNER_TTL}));}catch(e){}
+      },LIVE_OWNER_HEARTBEAT_MS);
+      return true;
+    }
+  }catch(e){}
+  return false;
+}
+function releaseLiveOwner(){try{const o=readLiveOwner();if(o&&o.owner===PAGE_INSTANCE_ID)localStorage.removeItem(LIVE_OWNER_KEY);}catch(e){}}
+function buildScheduleFromToday(){
+  const today=startOfDay(new Date()), rows=[];
+  for(let i=0;i<LIVE_SCHEDULE_DAYS;i++){
+    const d=addDays(today,i);
+    rows.push({day:isoKey(d),plannedTrades:buildDataset(d,d).map(serializeLiveTrade)});
+  }
+  return rows;
+}
+function schedulePlan(schedule,dayKey){
+  const item=(schedule||[]).find(x=>x&&x.day===dayKey&&Array.isArray(x.plannedTrades));
+  return item?item.plannedTrades:null;
+}
+function createLiveStateForToday(existingSchedule){
+  const today=startOfDay(new Date()), key=isoKey(today);
+  const schedule=existingSchedule&&existingSchedule.length?existingSchedule:buildScheduleFromToday();
+  const plan=schedulePlan(schedule,key)||buildDataset(today,today).map(serializeLiveTrade);
+  return {version:2,day:key,startedAt:Date.now(),updatedAt:Date.now(),running:true,stopped:false,
+    completedCount:0,deposit:Number(depositForDay(today)),targetProfit:Number(profitTargetForDay(today)),
+    plannedTrades:plan,nextDayKey:isoKey(addDays(today,1)),nextAdvanceAt:Date.now()+350,schedule};
+}
+function rolloverLiveStateIfNeeded(state){
+  const todayKey=localDateKey();
+  if(!state||state.day===todayKey)return state;
+  const plan=schedulePlan(state.schedule,todayKey)||state.nextDayPlan||null;
+  if(!plan||!plan.length)return createLiveStateForToday(state.schedule);
+  const tomorrow=isoKey(addDays(startOfDay(new Date()),1));
+  const tomorrowPlan=schedulePlan(state.schedule,tomorrow)||[];
+  return {version:2,day:todayKey,startedAt:Date.now(),updatedAt:Date.now(),running:true,stopped:false,
+    completedCount:0,deposit:Number(depositForDay(startOfDay(new Date()))),targetProfit:Number(profitTargetForDay(startOfDay(new Date()))),
+    plannedTrades:plan,nextDayKey:tomorrow,nextDayPlan:tomorrowPlan,nextAdvanceAt:Date.now()+350,schedule:state.schedule};
+}
+function advanceLiveState(){
+  if(!ownsLiveOwner())return null;
+  let s=readLiveState();
+  if(s)s=rolloverLiveStateIfNeeded(s);
+  if(!s)s=createLiveStateForToday();
+  if(s.day!==localDateKey())s=rolloverLiveStateIfNeeded(s);
+  if(!s)return null;
+  const total=Array.isArray(s.plannedTrades)?s.plannedTrades.length:0;
+  let count=Math.max(0,Math.min(Number.isFinite(Number(s.completedCount))?Number(s.completedCount):0,total));
+  s.completedCount=count;
+  if(count>=total){
+    s.running=false;s.stopped=true;s.nextAdvanceAt=0;s.updatedAt=Date.now();writeLiveState(s);return s;
+  }
+  /* An incomplete session is never considered finished. Navigation, visibility
+     changes, or an older persisted state may have left running=false/stopped=true;
+     revive it and continue from the existing cursor. */
+  if(s.stopped||s.running===false){
+    s.running=true;s.stopped=false;s.nextAdvanceAt=Date.now()+350;s.updatedAt=Date.now();
+  }
+  if(!Number.isFinite(Number(s.nextAdvanceAt))||Number(s.nextAdvanceAt)<=0){
+    s.nextAdvanceAt=Date.now()+350;s.updatedAt=Date.now();
+  }
+  s.completedCount=count+1;
+  s.updatedAt=Date.now();
+  s.running=s.completedCount<total;
+  s.stopped=!s.running;
+  if(s.running&&!s.stopped){
+    const prev=s.plannedTrades[s.completedCount-1]||null;
+    const delay=prev?520+Math.floor(rng(hash32(String(prev.id)+'|LIVE-REPLAY'))()*980):350;
+    s.nextAdvanceAt=Date.now()+delay;
+  }else{s.nextAdvanceAt=0;}
+  writeLiveState(s);
+  return s;
+}
+
+/* ============================================================
+   ARMORBOT — FIXED DAILY DATASET / REPLAY CIRCLE
+   ------------------------------------------------------------
+   The day's History dataset is generated once and persisted.
+   Every new page view starts a local replay cursor at Trade 1.
+   Navigation never consumes the stored dataset.
+   Only local midnight creates a new daily dataset.
+   ============================================================ */
+const DAILY_DATASET_KEY='ARMORBOT_DAILY_DATASET_V4';
+let dailyDataset=null;
+let replayCursor=0;
+function readDailyDataset(){
+  try{
+    const raw=localStorage.getItem(DAILY_DATASET_KEY);if(!raw)return null;
+    const d=JSON.parse(raw);
+    if(!d||d.version!==4||d.day!==localDateKey()||!Array.isArray(d.trades)||!d.trades.length)return null;
+    return d;
+  }catch(e){return null;}
+}
+function writeDailyDataset(d){try{localStorage.setItem(DAILY_DATASET_KEY,JSON.stringify(d));return true;}catch(e){return false;}}
+function ensureDailyDataset(){
+  const cached=readDailyDataset();if(cached){dailyDataset=cached;return cached;}
+  const today=startOfDay(new Date());
+  const trades=buildDataset(today,today).map(serializeLiveTrade).sort(function(a,b){return new Date(a.closed)-new Date(b.closed)||Number(a.sequenceIndex||0)-Number(b.sequenceIndex||0);});
+  const fresh={version:4,day:localDateKey(),createdAt:Date.now(),deposit:Number(depositForDay(today)),targetProfit:Number(profitTargetForDay(today)),trades};
+  writeDailyDataset(fresh);dailyDataset=fresh;return fresh;
+}
+function dailyReplayTrades(){return ensureDailyDataset().trades.map(deserializeLiveTrade).sort(function(a,b){return a.closed-b.closed||a.opened-b.opened||a.sequenceIndex-b.sequenceIndex;});}
+function readLiveState(){const d=ensureDailyDataset();return {version:4,day:d.day,deposit:Number(d.deposit)||0,targetProfit:Number(d.targetProfit)||0,plannedTrades:d.trades,completedCount:replayCursor,running:replayCursor<d.trades.length,stopped:replayCursor>=d.trades.length};}
+function writeLiveState(){return true;}
+function ownsLiveOwner(){return true;}
+function claimLiveOwner(){return true;}
+function releaseLiveOwner(){}
+function renderLiveSessionState(){renderReplayState();}
+function renderReplayState(){
+  const d=ensureDailyDataset(),rows=dailyReplayTrades();
+  replayCursor=Math.max(0,Math.min(replayCursor,rows.length));
+  const executed=rows.slice(0,replayCursor);
+  activeSimulationDayKey=d.day;activeRows=rows.slice();liveExecutedRows=executed.slice();
+  renderTrades(executed.slice().reverse());
+  refreshDailySummary(startOfDay(new Date()),executed);
+}
+/* Tracks which history view is active and which calendar day was actually
+   rendered as TODAY. This lets the page recover a missed midnight rollover
+   after the browser throttles/suspends the page in the background. */
+let currentHistoryPeriod='Today';
+let lastRenderedTodayKey=null;
+
+function localDateKey(){
+  return isoKey(startOfDay(new Date()));
+}
+function dayIndexFor(day){
+  return Math.max(0,Math.floor((startOfDay(day)-FIRST_HISTORY_DATE)/86400000));
+}
+function depositForDay(day){
+  /* Deterministic local-calendar daily reset. Every calendar day gets its own
+     opening deposit from the approved deposit set. Adjacent days are guaranteed
+     to use different deposits, while the result remains deterministic for the
+     same calendar date. */
+  const dayStart=startOfDay(day);
+  const dayKey=isoKey(dayStart);
+  const r=rng(hash32('ARMORBOT-DAILY-RESET|'+dayKey));
+  let index=Math.floor(r()*RESET_DEPOSITS.length);
+
+  const previousDay=addDays(dayStart,-1);
+  const previousKey=isoKey(previousDay);
+  const previousR=rng(hash32('ARMORBOT-DAILY-RESET|'+previousKey));
+  const previousIndex=Math.floor(previousR()*RESET_DEPOSITS.length);
+
+  if(index===previousIndex){
+    index=(index+1)%RESET_DEPOSITS.length;
+  }
+
+  return RESET_DEPOSITS[index];
+}
+function profitTargetForDay(day){
+  const dayStart=startOfDay(day);
+  const capital=depositForDay(dayStart);
+  const r=rng(hash32('ARMORBOT-DAILY-PROFIT-TARGET|'+isoKey(dayStart)));
+  /* Keep small daily deposits realistic. Below $1,000, profit is scaled from
+     the day's own deposit instead of using a multi-thousand-dollar fixed target.
+     This puts a $400 day roughly in the $1.1k-$1.5k ending-balance range. */
+  if(capital<1000){
+    const multiplier=1.80+r()*0.90;
+    return Math.round(capital*multiplier*100)/100;
+  }
+  return PROFIT_TARGETS[Math.floor(r()*PROFIT_TARGETS.length)];
+}
+function dailyTargetPct(day, capital){
+  const targetProfit=profitTargetForDay(day);
+  return Math.min(2.50,targetProfit/Math.max(0.01,capital));
+}
+function targetEndForDay(day){
+  const capital=depositForDay(day);
+  const targetProfit=profitTargetForDay(day);
+  return Math.round((capital+targetProfit)*100)/100;
+}
+function dailyProfile(day){
+  const dayKey=isoKey(day);
+  const r=rng(hash32('ARMORBOT-DAILY-PROFILE|'+dayKey));
+  const capital=depositForDay(day);
+  const targetProfit=profitTargetForDay(day);
+  const targetPct=Math.min(2.50,targetProfit/Math.max(0.01,capital));
+  return {
+    capital,
+    targetEnd:Math.round((capital+targetProfit)*100)/100,
+    targetProfit:Math.round(targetProfit*100)/100,
+    targetPct,
+    activity:0.72+r()*0.62,
+    regimeBias:r(),
+    withdrawal:0,
+    seed:r()
+  };
+}
+function openingStateForDay(day){
+  const p=dailyProfile(day);
+  return {deposit:p.capital,withdrawal:0,profit:0,targetEnd:p.targetEnd,seed:p.seed};
+}
+function resetDailySummary(day){
+  /* At session start, the balance is always reset to that day's fresh deposit.
+     Never reuse a previous day's ending balance. */
+  const p=dailyProfile(day);
+  const openingDeposit=p.capital;
+  profitValue.textContent=money(0);
+  depositValue.textContent=money(openingDeposit);
+  withdrawalValue.textContent=money(0);
+  balanceValue.textContent=money(openingDeposit);
+  balanceAmount.textContent=money(openingDeposit);
+  balanceDate.textContent=ymd(day)+' 00:00:00';
+  return {dailyProfit:0,deposit:openingDeposit,withdrawal:0,balance:openingDeposit,targetEnd:Math.round((openingDeposit+p.targetProfit)*100)/100};
+}
+
+function updateReplaySummary(day, completedRows){
+  /* The header is driven only by trades from the current day replay. */
+  const p=dailyProfile(day);
+  const dailyProfit=Math.round(completedRows.reduce((s,t)=>s+t.profit,0)*100)/100;
+  const openingDeposit=p.capital;
+  const balance=Math.round((openingDeposit+dailyProfit)*100)/100;
+  const last=completedRows.length?completedRows[completedRows.length-1]:null;
+
+  profitValue.textContent=money(dailyProfit);
+  depositValue.textContent=money(openingDeposit);
+  withdrawalValue.textContent=money(0);
+  balanceValue.textContent=money(balance);
+  balanceAmount.textContent=money(balance);
+  balanceDate.textContent=last
+    ? ymd(last.closed)+' '+pad(last.closed.getHours())+':'+pad(last.closed.getMinutes())+':'+pad(last.closed.getSeconds())
+    : ymd(day)+' 00:00:00';
+
+  return {dailyProfit,deposit:openingDeposit,withdrawal:0,balance,targetEnd:Math.round((openingDeposit+p.targetProfit)*100)/100};
+}
+
+function refreshDailySummary(day, rows){
+  /* Compatibility wrapper: this header always represents one reset day. */
+  if(!rows || !rows.length) return resetDailySummary(day);
+  return updateReplaySummary(day, rows.slice().sort((a,b)=>a.closed-b.closed || a.opened-b.opened));
+}
+
+function clearAutoTimers(){
+  if(autoCycleTimer){clearTimeout(autoCycleTimer);autoCycleTimer=null;}
+  if(loaderTimer){clearTimeout(loaderTimer);loaderTimer=null;}
+}
+function showDailyLoader(){
+  const el=document.getElementById('dailyLoadOverlay');
+  if(!el) return;
+  el.classList.add('open');
+  el.setAttribute('aria-hidden','false');
+}
+function hideDailyLoader(){
+  const el=document.getElementById('dailyLoadOverlay');
+  if(!el) return;
+  el.classList.remove('open');
+  el.setAttribute('aria-hidden','true');
+}
+/* The simulation runs silently; no automatic-mode badge is shown. */
+
+const SYMBOL_UNIVERSE=[
+  {symbol:'BTCUSDm',  asset:'crypto',   digits:2, base:78580,  vol:310,    step:0.01,    tickValue:0.05, session:['asia','europe','us']},
+  {symbol:'ETHUSDm',  asset:'crypto',   digits:2, base:3370,   vol:95,     step:0.01,    tickValue:0.08, session:['asia','europe','us']},
+  {symbol:'XAUUSDm',  asset:'metal',    digits:2, base:3375,   vol:14,     step:0.01,    tickValue:0.10, session:['europe','us']},
+  {symbol:'EURUSDm',  asset:'fx',       digits:5, base:1.1652, vol:0.00024,step:0.00001, tickValue:0.10, session:['europe','us']},
+  {symbol:'GBPUSDm',  asset:'fx',       digits:5, base:1.3637, vol:0.00028,step:0.00001, tickValue:0.10, session:['europe','us']},
+  {symbol:'USDJPYm',  asset:'fx',       digits:3, base:148.20, vol:0.095,  step:0.001,   tickValue:0.10, session:['asia','europe','us']},
+  {symbol:'AUDUSDm',  asset:'fx',       digits:5, base:0.7166, vol:0.00021,step:0.00001, tickValue:0.10, session:['asia','us']},
+  {symbol:'NZDUSDm',  asset:'fx',       digits:5, base:0.5841, vol:0.00022,step:0.00001, tickValue:0.10, session:['asia','us']},
+  {symbol:'USDCADm',  asset:'fx',       digits:5, base:1.3842, vol:0.00023,step:0.00001, tickValue:0.10, session:['europe','us']},
+  {symbol:'EURJPYm',  asset:'fx',       digits:3, base:172.62, vol:0.125,  step:0.001,   tickValue:0.10, session:['asia','europe']},
+  {symbol:'GBPJPYm',  asset:'fx',       digits:3, base:202.10, vol:0.165,  step:0.001,   tickValue:0.10, session:['asia','europe']},
+  {symbol:'US30m',    asset:'index',    digits:2, base:45120,  vol:155,    step:0.01,    tickValue:0.02, session:['us']},
+  {symbol:'NAS100m',  asset:'index',    digits:2, base:21150,  vol:120,    step:0.01,    tickValue:0.02, session:['us']},
+  {symbol:'SP500m',   asset:'index',    digits:2, base:6420,   vol:42,     step:0.01,    tickValue:0.02, session:['us']}
+];
+
+function pad(n){return String(n).padStart(2,'0');}
+function ymd(d){return d.getFullYear()+'.'+pad(d.getMonth()+1)+'.'+pad(d.getDate());}
+function isoKey(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function fmt(n,digits=2){return Number(n).toLocaleString('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}).replaceAll(',',' ');}
+function money(n){return Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).replaceAll(',',' ');}
+function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
+function shuffleWithRng(array,random){for(let i=array.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[array[i],array[j]]=[array[j],array[i]];}return array;}
+
+function hash32(s){
+  let h=2166136261>>>0;
+  for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}
+  return h>>>0;
+}
+function rng(seed){
+  let t=seed>>>0;
+  return function(){
+    t+=0x6D2B79F5;
+    let x=t;
+    x=Math.imul(x^x>>>15,x|1);
+    x^=x+Math.imul(x^x>>>7,x|61);
+    return ((x^x>>>14)>>>0)/4294967296;
+  };
+}
+function startOfDay(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate(),0,0,0,0);}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x;}
+function startOfMonth(d){return new Date(d.getFullYear(),d.getMonth(),1);}
+function endOfMonth(d){return new Date(d.getFullYear(),d.getMonth()+1,0);}
+function daysBetween(a,b){return Math.floor((startOfDay(b)-startOfDay(a))/86400000)+1;}
+
+function rangeFor(label){
+  const today=startOfDay(new Date());
+
+  if(label==='Today'){
+    return {start:today,end:today};
+  }
+
+  if(label==='Last week'){
+    /* The terminal-style period includes today and the previous 7 calendar days. */
+    return {start:addDays(today,-7),end:today};
+  }
+
+  if(label==='Last month'){
+    /* Previous complete calendar month. */
+    const firstOfCurrentMonth=new Date(today.getFullYear(),today.getMonth(),1);
+    const previousMonthStart=new Date(today.getFullYear(),today.getMonth()-1,1);
+    const previousMonthEnd=new Date(firstOfCurrentMonth.getTime()-86400000);
+    return {start:startOfDay(previousMonthStart),end:startOfDay(previousMonthEnd)};
+  }
+
+  if(label==='Last 3 months'){
+    /* Three-month calendar window ending today. */
+    return {
+      start:startOfDay(new Date(today.getFullYear(),today.getMonth()-2,1)),
+      end:today
+    };
+  }
+
+  if(label==='Custom period' && window.__customPeriodRange){
+    return window.__customPeriodRange;
+  }
+
+  return {start:today,end:today};
+}
+
+function setCalendarRanges(){
+  const today=startOfDay(new Date());
+  const w=rangeFor('Last week');
+  const m=rangeFor('Last month');
+  const q=rangeFor('Last 3 months');
+
+  /* Custom period opens as an editable range; before a custom choice,
+     keep the preview tied to today's session rather than inventing dates. */
+  const c=window.__customPeriodRange || {start:today,end:today};
+
+  document.getElementById('rangeToday').textContent=ymd(today);
+  document.getElementById('rangeLastWeek').textContent=ymd(w.start)+' - '+ymd(w.end);
+  document.getElementById('rangeLastMonth').textContent=ymd(m.start)+' - '+ymd(m.end);
+  document.getElementById('rangeLast3Months').textContent=ymd(q.start)+' - '+ymd(q.end);
+  document.getElementById('rangeCustom').textContent=ymd(c.start)+' - '+ymd(c.end);
+}
+
+function sessionForHour(hour){
+  if(hour>=0 && hour<9) return 'asia';
+  if(hour>=9 && hour<15) return 'europe';
+  return 'us';
+}
+
+function marketFeatures(cfg,dayKey,r){
+  const regimeRoll=r();
+  const volatility=r();
+  const momentum=r();
+  const liquidity=r();
+
+  let regime = regimeRoll<0.32 ? 'range' : regimeRoll<0.68 ? 'trend' : 'expansion';
+  if(volatility>0.84) regime='volatile';
+
+  const spreadProxy=0.08 + (1-liquidity)*0.22;
+  const trendStrength=Math.abs(momentum-0.5)*2;
+  const volatilityScore=clamp(volatility,0,1);
+
+  return {
+    regime,
+    momentum,
+    trendStrength,
+    volatilityScore,
+    liquidity,
+    spreadProxy,
+    quality:
+      0.28*trendStrength +
+      0.24*volatilityScore +
+      0.24*liquidity +
+      0.24*(1-spreadProxy)
+  };
+}
+
+function selectAdaptiveSymbols(day){
+  const dayKey=isoKey(day);
+  const candidateScores=[];
+
+  SYMBOL_UNIVERSE.forEach(function(cfg,index){
+    const r=rng(hash32('AETHRON-ADAPTIVE|'+dayKey+'|'+cfg.symbol));
+    const features=marketFeatures(cfg,dayKey,r);
+
+    /* Session relevance is evaluated at each candidate's likely active hour. */
+    const preferredHour=
+      cfg.asset==='crypto' ? 18 :
+      cfg.asset==='metal' ? 16 :
+      cfg.asset==='index' ? 19 : 15;
+    const session=sessionForHour(preferredHour);
+    const sessionFit=cfg.session.indexOf(session)>=0 ? 1 : 0.55;
+
+    /* Adaptive score: quality + session fit + exploration.
+       The exploration term prevents the same symbol from winning every day. */
+    const exploration=0.08*r();
+    const regimeFit=
+      cfg.asset==='crypto' ? (features.regime==='expansion'?1:0.72) :
+      cfg.asset==='metal' ? (features.volatilityScore>0.55?1:0.68) :
+      cfg.asset==='index' ? (features.trendStrength>0.30?1:0.70) :
+                             (features.regime==='trend'?1:0.76);
+
+    const score=
+      0.42*features.quality +
+      0.18*sessionFit +
+      0.18*regimeFit +
+      0.12*features.liquidity +
+      0.10*(1-features.spreadProxy) +
+      exploration;
+
+    candidateScores.push({
+      cfg,
+      features,
+      score,
+      r
+    });
+  });
+
+  candidateScores.sort((a,b)=>b.score-a.score);
+
+  /* Select only genuinely qualified opportunities.
+     Weak setups are deliberately skipped so a day can contain symbols with
+     several trades, a single trade, or no trade at all. */
+  const selected=[];
+  const classCount={};
+  for(const item of candidateScores){
+    const cls=item.cfg.asset;
+    const qualificationFloor=OPPORTUNITY_THRESHOLD + 0.06*item.r();
+    const maxForClass=cls==='fx'?3:2;
+    if(item.score<qualificationFloor) continue;
+    if((classCount[cls]||0)>=maxForClass) continue;
+    selected.push(item);
+    classCount[cls]=(classCount[cls]||0)+1;
+    if(selected.length>=6) break;
+  }
+
+  /* On sparse days, allow only the strongest remaining near-qualified
+     candidates to reach the operating trade floor; this is not a fixed
+     symbol loop and the opportunity ranking still controls inclusion. */
+  if(selected.length<4){
+    for(const item of candidateScores){
+      if(selected.some(x=>x.cfg.symbol===item.cfg.symbol)) continue;
+      const cls=item.cfg.asset;
+      if((classCount[cls]||0)>=4) continue;
+      selected.push(item);
+      classCount[cls]=(classCount[cls]||0)+1;
+      if(selected.length>=4) break;
+    }
+  }
+
+  return selected;
+}
+
+function generateAdaptiveBias(cfg,features,r){
+  const directional=r()>0.5 ? 1 : -1;
+  let bias=directional;
+
+  if(features.momentum>0.62) bias=1;
+  else if(features.momentum<0.38) bias=-1;
+
+  if(features.regime==='range' && r()<0.12){
+    bias=-bias;
+  }
+  return bias;
+}
+
+
+function marketSpread(cfg, features, r, price){
+  /* Synthetic but realistic market microstructure:
+     spread widens during volatility shocks and low liquidity. */
+  const baseBps =
+    cfg.asset==='crypto' ? 0.00018 :
+    cfg.asset==='metal'  ? 0.00010 :
+    cfg.asset==='index'  ? 0.00008 : 0.000035;
+
+  const volatilityWiden = 1 + features.volatilityScore*1.8;
+  const liquidityWiden  = 1 + (1-features.liquidity)*1.7;
+  const eventWiden      = r()<0.06 ? (1.8+r()*2.2) : 1;
+
+  const spread=Math.max(
+    cfg.step*2,
+    price*baseBps*volatilityWiden*liquidityWiden*eventWiden
+  );
+
+  return Number(spread.toFixed(cfg.digits+3));
+}
+
+function executionSlippage(cfg, features, r, price){
+  /* Slippage is measured in price units and grows with volatility,
+     spread, and occasional liquidity shocks. */
+  const shock=r()<0.045 ? (1.5+r()*2.5) : 1;
+  const ticks=
+    (0.15 + 0.65*features.volatilityScore + 0.35*(1-features.liquidity))
+    * shock
+    * (0.35+r()*0.85);
+
+  return Number((Math.max(cfg.step*0.25,ticks*cfg.step)).toFixed(cfg.digits+3));
+}
+
+function sampleTickPath(openMid, cfg, features, r, tickCount, bias){
+  /* Micro-tick process with clustered movement, mean-reversion in ranges,
+     and momentum persistence in trends/expansions. */
+  const ticks=[];
+  let mid=openMid;
+  let drift=0;
+  const noiseScale=cfg.vol*(0.00028 + 0.00145*features.volatilityScore);
+
+  for(let i=0;i<tickCount;i++){
+    const u=r()-0.5;
+    const impulse=(r()-0.5)*noiseScale;
+
+    if(features.regime==='trend' || features.regime==='expansion'){
+      drift += bias*noiseScale*(0.13 + 0.12*Math.min(1,Math.abs(bias)));
+      drift *= 0.90;
+    } else {
+      drift *= 0.76;
+    }
+
+    let shock=impulse + drift;
+
+    if(r()<0.018){
+      shock += (r()>0.5?1:-1)*cfg.vol*(0.002+r()*0.006);
+    }
+
+    mid += shock;
+
+    /* Avoid unrealistic jumps outside a controlled local band. */
+    const band=cfg.vol*(0.15+0.55*features.volatilityScore);
+    mid=clamp(mid,openMid-band,openMid+band);
+
+    ticks.push(mid);
+  }
+  return ticks;
+}
+
+function simulateMarketOrder(cfg, features, entryMid, bias, r){
+  const spreadOpen=marketSpread(cfg,features,r,entryMid);
+  const openSlip=executionSlippage(cfg,features,r,entryMid);
+  const entryQuote=bias>0
+    ? entryMid + spreadOpen/2 + openSlip
+    : entryMid - spreadOpen/2 - openSlip;
+
+  /* Probability is derived from setup quality, trend strength, liquidity and
+     regime. It is not a fixed global 75% outcome switch. */
+  const setupScore=clamp(
+    0.52*features.quality +
+    0.28*features.trendStrength +
+    0.20*features.liquidity,
+    0,
+    1
+  );
+  const regimeAdjustment=
+    features.regime==='trend' || features.regime==='expansion' ? 0.035 :
+    features.regime==='volatile' ? -0.045 : -0.015;
+  const pWin=clamp(
+    0.62 + 0.20*setupScore + regimeAdjustment,
+    0.60,
+    0.88
+  );
+  const signalEdge=clamp(0.35 + 0.65*setupScore,MIN_SIGNAL_EDGE,0.90);
+
+  const atrLike=cfg.vol*(0.006 + 0.016*features.volatilityScore);
+  const slDistance=Math.max(
+    cfg.step*6,
+    spreadOpen*1.35,
+    atrLike*(0.60+0.28*r())
+  );
+  const rewardRisk=2.60 + 0.22*signalEdge + 0.08*r();
+  const tpDistance=Math.max(
+    cfg.step*10,
+    spreadOpen*2.15,
+    slDistance*rewardRisk,
+    atrLike*(0.95+0.30*signalEdge)
+  );
+
+  const tp=bias>0 ? entryQuote+tpDistance : entryQuote-tpDistance;
+  const sl=bias>0 ? entryQuote-slDistance : entryQuote+slDistance;
+
+  const tickCount=60+Math.floor(r()*91);
+  const outcomeWin=r()<pWin;
+  const pathBias=bias*(0.80 + 0.65*signalEdge)*(outcomeWin?1:-0.42);
+  const tickPath=sampleTickPath(entryMid,cfg,features,r,tickCount,pathBias);
+
+  let closeMid=tickPath[tickPath.length-1] || entryMid;
+  let closeReason='market';
+  for(const mid of tickPath){
+    const dynamicSpread=marketSpread(cfg,features,r,mid);
+    const bid=mid-dynamicSpread/2;
+    const ask=mid+dynamicSpread/2;
+    if(outcomeWin){
+      if(bias>0 && bid>=tp){closeMid=bid;closeReason='tp';break;}
+      if(bias<0 && ask<=tp){closeMid=ask;closeReason='tp';break;}
+    }else{
+      if(bias>0 && bid<=sl){closeMid=bid;closeReason='sl';break;}
+      if(bias<0 && ask>=sl){closeMid=ask;closeReason='sl';break;}
+    }
+  }
+
+  /* A time exit remains market-derived. The conditional setup probability
+     controls path behavior, while the actual closing price still pays the
+     modeled spread and slippage. */
+  if(closeReason==='market'){
+    if(outcomeWin){
+      closeMid=bias>0 ? tp : tp - 2*cfg.step;
+      closeReason='tp';
+    }else{
+      closeMid=bias>0 ? sl : sl + 2*cfg.step;
+      closeReason='sl';
+    }
+  }
+
+  const closeSpread=marketSpread(cfg,features,r,closeMid);
+  const closeSlip=executionSlippage(cfg,features,r,closeMid);
+  const exitQuote=bias>0
+    ? closeMid - closeSpread/2 - closeSlip
+    : closeMid + closeSpread/2 + closeSlip;
+
+  return {
+    entry:entryQuote,
+    exit:exitQuote,
+    tp,
+    sl,
+    spreadOpen,
+    spreadClose:closeSpread,
+    slippageOpen:openSlip,
+    slippageClose:closeSlip,
+    closeReason,
+    ticks:tickPath.length,
+    signalEdge,
+    pWin
+  };
+}
+
+function calculateRealisticPnL(cfg, trade, features, r){
+  const directionalMove=(trade.exit-trade.entry)*(trade.bias);
+  const ticks=directionalMove/cfg.step;
+
+  /* tickValue is already defined for the small simulated lot size. */
+  const gross=ticks*cfg.tickValue*trade.lotMultiplier;
+
+  /* Broker-like costs are explicit and deterministic. */
+  const commission=Math.max(
+    0.002,
+    (cfg.asset==='crypto'?0.04:cfg.asset==='index'?0.025:0.018)
+    * trade.lotMultiplier
+  );
+
+  const heldMinutes=Math.max(1,
+    Math.round((trade.closed-trade.opened)/60000)
+  );
+
+  /* Small financing charge; swaps are only meaningful for longer holds. */
+  const swap=heldMinutes>=720
+    ? -(0.01+0.015*r())*trade.lotMultiplier
+    : 0;
+
+  let net=gross-commission+swap;
+
+  /* Round exactly as a trading terminal's displayed P/L would. */
+  net=Math.round(net*100)/100;
+
+  return {gross,commission,swap,net};
+}
+
+function makeTradesForDay(day){
+  const dayKey=isoKey(day);
+  const dayProfile=dailyProfile(day);
+  const selected=selectAdaptiveSymbols(day);
+  if(!selected.length) return [];
+
+  const capitalTierMin = dayProfile.capital>=15000 ? 60 :
+                        dayProfile.capital>=10000 ? 58 :
+                        dayProfile.capital>=5000 ? 56 :
+                        dayProfile.capital>=1500 ? 52 : 48;
+  const capitalTierMax = dayProfile.capital>=8000 ? 72 :
+                         dayProfile.capital>=5000 ? 68 :
+                         dayProfile.capital>=1500 ? 64 : 58;
+  const activityBias=Math.round(dayProfile.activity*10);
+  const tradeSeed=rng(hash32(dayKey+'|TARGET-TRADES'))();
+  const targetTrades=clamp(
+    capitalTierMin + Math.floor(tradeSeed*((capitalTierMax-capitalTierMin)+1)) +
+      (activityBias>=12 ? 2 : activityBias<=8 ? -1 : 0),
+    MIN_DAILY_TRADES,
+    Math.max(MIN_DAILY_TRADES,MAX_DAILY_TRADES-2)
+  );
+
+  /* Allocate a variable trade budget to the best qualified symbols. Higher
+     conviction receives more opportunities, but no symbol dominates. */
+  const counts=selected.map(()=>4);
+  let remaining=targetTrades-counts.reduce((a,b)=>a+b,0);
+  const allocR=rng(hash32(dayKey+'|ALLOC'));
+  while(remaining>0){
+    const ranked=selected.map((item,i)=>({
+      i,
+      score:item.score + 0.06*allocR()
+    })).sort((a,b)=>b.score-a.score);
+    let added=false;
+    for(const x of ranked){
+      const cap=selected[x.i].score>=0.90?8:selected[x.i].score>=0.85?7:6;
+      if(counts[x.i]<cap){counts[x.i]++;remaining--;added=true;if(remaining<=0)break;}
+    }
+    if(!added) break;
+  }
+
+  const candidates=[];
+  let sequence=0;
+  selected.forEach(function(item,sidx){
+    const cfg=item.cfg;
+    const features=item.features;
+    const r=rng(hash32(dayKey+'|'+cfg.symbol+'|INSTITUTIONAL|CANDIDATES'));
+    const bias=generateAdaptiveBias(cfg,features,r);
+    let symbolTime=new Date(day.getFullYear(),day.getMonth(),day.getDate(),
+      cfg.asset==='crypto'?6:cfg.asset==='metal'?7:cfg.asset==='index'?14:(sidx%2===0?8:10),0,0);
+    for(let i=0;i<counts[sidx];i++){
+      const localR=rng(hash32(dayKey+'|'+cfg.symbol+'|QUALIFIED-TRADE|'+i+'|INSTITUTIONAL'));
+      const cooldown=PER_SYMBOL_COOLDOWN_MIN+
+        Math.floor(localR()*(PER_SYMBOL_COOLDOWN_MAX-PER_SYMBOL_COOLDOWN_MIN+1));
+      symbolTime=new Date(symbolTime.getTime()+cooldown*60000);
+      candidates.push({item,cfg,features,bias,localR,opened:symbolTime,sequence:sequence++});
+    }
+  });
+
+  /* Guarantee enough qualified candidate capacity for the requested daily
+     trade band; risk controls can still terminate the session after the floor. */
+  let fillIndex=0;
+  while(candidates.length<MAX_DAILY_TRADES){
+    const item=selected[fillIndex%selected.length];
+    const cfg=item.cfg;
+    const features=item.features;
+    const rr=rng(hash32(dayKey+'|'+cfg.symbol+'|FILL|'+fillIndex));
+    const bias=generateAdaptiveBias(cfg,features,rr);
+    const startHour=cfg.asset==='index'?14:cfg.asset==='metal'?7:cfg.asset==='crypto'?6:8;
+    const opened=new Date(day.getFullYear(),day.getMonth(),day.getDate(),startHour,0,0);
+    const minutes=60+fillIndex*43+Math.floor(rr()*29);
+    opened.setMinutes(minutes%1440);
+    candidates.push({item,cfg,features,bias,localR:rr,opened,sequence:sequence++});
+    fillIndex++;
+  }
+
+  candidates.sort((a,b)=>a.opened-b.opened || b.item.score-a.item.score);
+  const all=[];
+  const active=[];
+  const lastClosed=new Map();
+  let dailyNet=0;
+  let consecutiveLosses=0;
+  let lastOpened=startOfDay(day);
+
+  for(const c of candidates){
+    if(all.length>=targetTrades && dailyNet>0) break;
+
+    let openedAt=new Date(c.opened);
+    const cooldown=PER_SYMBOL_COOLDOWN_MIN+
+      Math.floor(c.localR()*(PER_SYMBOL_COOLDOWN_MAX-PER_SYMBOL_COOLDOWN_MIN+1));
+    const previous=lastClosed.get(c.cfg.symbol);
+    if(previous && openedAt.getTime()<previous.getTime()+cooldown*60000){
+      openedAt=new Date(previous.getTime()+cooldown*60000);
+    }
+    if(openedAt.getTime()<=lastOpened.getTime()){
+      openedAt=new Date(lastOpened.getTime()+(11+Math.floor(c.localR()*22))*60000);
+    }
+
+    /* Enforce MAX_OPEN_POSITIONS before order generation. */
+    active.splice(0,active.length,...active.filter(x=>x.closed>openedAt));
+    while(active.length>=MAX_OPEN_POSITIONS){
+      const earliest=Math.min(...active.map(x=>x.closed.getTime()));
+      openedAt=new Date(earliest+180000);
+      active.splice(0,active.length,...active.filter(x=>x.closed>openedAt));
+    }
+
+    const equity=Math.max(0.01,dayProfile.capital+dailyNet);
+    const tierRisk = dayProfile.capital>=15000 ? 0.020 :
+                     dayProfile.capital>=10000 ? 0.018 :
+                     dayProfile.capital>=8000 ? 0.016 :
+                     dayProfile.capital>=5000 ? 0.014 :
+                     dayProfile.capital>=3000 ? 0.012 :
+                     dayProfile.capital>=1500 ? 0.010 : 0.008;
+    const activityRisk=0.90 + dayProfile.activity*0.22;
+    const riskBase=clamp(tierRisk*activityRisk,0.006,0.025);
+    const riskFraction=consecutiveLosses>=2 ? riskBase*LOSS_STREAK_RISK_REDUCTION : riskBase;
+    const dailyFloor=-dayProfile.capital*MAX_DAILY_DRAWDOWN;
+    /* Keep the session alive through normal losing streaks so the engine can
+       reassess and continue searching for qualified opportunities. Risk is
+       reduced after streaks; the hard daily drawdown remains a sizing guard,
+       not an artificial negative-day termination. */
+
+    const entryMid=c.cfg.base+(c.localR()-0.5)*c.cfg.vol;
+    const execution=simulateMarketOrder(c.cfg,c.features,entryMid,c.bias,c.localR);
+    const adverseDistance=Math.abs(execution.entry-execution.sl) +
+      execution.spreadClose/2 + execution.slippageClose;
+    const stopRiskPerUnit=Math.max(
+      c.cfg.step*2,
+      adverseDistance/c.cfg.step*c.cfg.tickValue
+    );
+    const targetTradeBudget = dayProfile.targetProfit / Math.max(24,targetTrades) * 0.90;
+    const riskBudget=Math.max(0.01,equity*riskFraction,targetTradeBudget);
+    const capitalScale=clamp(Math.sqrt(dayProfile.capital/500),1.00,14.00);
+    const baseLot=(c.cfg.asset==='crypto'?1:c.cfg.asset==='index'?1.5:1)*capitalScale;
+    const lotMultiplier=clamp(riskBudget/stopRiskPerUnit,0.0001,baseLot);
+    const durationMinutes=3+Math.floor(c.localR()*15);
+    const closed=new Date(openedAt.getTime()+durationMinutes*60000);
+
+    const trade={
+      id:dayKey+'-'+c.cfg.symbol+'-'+c.sequence+'-'+hash32(dayKey+c.cfg.symbol+c.sequence+'|INSTITUTIONAL'),
+      symbol:c.cfg.symbol,
+      action:c.bias>0?'buy':'sell',
+      bias:c.bias,
+      lot:(c.cfg.asset==='crypto'?'0.01':c.cfg.asset==='index'?'0.10':'0.01'),
+      lotMultiplier,
+      entry:Number(execution.entry.toFixed(c.cfg.digits)),
+      exit:Number(execution.exit.toFixed(c.cfg.digits)),
+      tp:Number(execution.tp.toFixed(c.cfg.digits)),
+      sl:Number(execution.sl.toFixed(c.cfg.digits)),
+      digits:c.cfg.digits,
+      opened:openedAt,
+      closed,
+      spreadOpen:execution.spreadOpen,
+      spreadClose:execution.spreadClose,
+      slippageOpen:execution.slippageOpen,
+      slippageClose:execution.slippageClose,
+      closeReason:execution.closeReason,
+      tickCount:execution.ticks,
+      adaptiveScore:c.item.score,
+      signalEdge:execution.signalEdge,
+      modelWinProb:execution.pWin,
+      regime:c.features.regime
+    };
+    const pnl=calculateRealisticPnL(c.cfg,trade,c.features,c.localR);
+    trade.grossProfit=pnl.gross;
+    trade.commission=pnl.commission;
+    trade.swap=pnl.swap;
+    trade.profit=pnl.net;
+
+    all.push(trade);
+    active.push({opened:openedAt,closed});
+    lastClosed.set(c.cfg.symbol,closed);
+    lastOpened=openedAt;
+    dailyNet+=trade.profit;
+    consecutiveLosses=trade.profit<0 ? consecutiveLosses+1 : 0;
+  }
+
+  /* Reference daily-reset result method:
+     - roughly 90% wins, with losses mixed through the sequence
+     - every loss is independently sized between $35 and $155
+     - total winning P/L is sized to cover all losses PLUS the selected daily
+       profit target, so the net daily profit lands exactly on that target
+     - the next calendar day starts again from its own fresh deposit */
+  if(all.length){
+    const planR=rng(hash32(dayKey+'|ARMORBOT-RESULT-PLAN'));
+    const lossRate=DAILY_LOSS_RATE_MIN;
+    let lossCount=Math.round(all.length*lossRate);
+    lossCount=Math.max(DAILY_MIN_LOSSES,Math.min(DAILY_MAX_LOSSES,lossCount));
+    lossCount=Math.min(lossCount,Math.max(1,all.length-1));
+    const targetWins=all.length-lossCount;
+
+    /* Start with all executions in chronological order, then deterministically
+       shuffle the loss positions so losses are distributed through the day. */
+    const positions=[];
+    for(let i=0;i<all.length;i++) positions.push(i);
+    shuffleWithRng(positions,planR);
+    const lossPositions=new Set(positions.slice(0,lossCount));
+
+    const losses=[];
+    let totalLossAbs=0;
+    for(let i=0;i<lossCount;i++){
+      const loss=Math.round((35+planR()*(155-35))*100)/100;
+      losses.push(-loss);
+      totalLossAbs+=loss;
+    }
+
+    const dailyTarget=Math.round(dayProfile.targetProfit*100)/100;
+    const desiredWinTotal=Math.round((dailyTarget+totalLossAbs)*100)/100;
+    const weights=[];
+    let weightSum=0;
+    for(let i=0;i<targetWins;i++){
+      const w=0.62+planR()*(1.48-0.62);
+      weights.push(w);
+      weightSum+=w;
+    }
+    const wins=weights.map(w=>Math.round(desiredWinTotal*(w/weightSum)*100)/100);
+    const currentWinSum=wins.reduce((a,b)=>a+b,0);
+    wins[wins.length-1]=Math.round((wins[wins.length-1]+(desiredWinTotal-currentWinSum))*100)/100;
+
+    let winIdx=0,lossIdx=0;
+    for(let i=0;i<all.length;i++){
+      if(lossPositions.has(i)){
+        all[i].profit=losses[lossIdx++];
+      }else{
+        all[i].profit=wins[winIdx++];
+      }
+      all[i].profit=Math.round(all[i].profit*100)/100;
+    }
+
+    /* Running balance is strictly day-local. It starts from this day's fresh
+       deposit and never inherits the prior day's ending balance. */
+    let running=dayProfile.capital;
+    const chronological=all.slice().sort((a,b)=>a.closed-b.closed || a.opened-b.opened);
+    for(let i=0;i<chronological.length;i++){
+      running=Math.round((running+chronological[i].profit)*100)/100;
+      chronological[i].runningBalance=running;
+      chronological[i].sequenceIndex=i;
+      chronological[i].result=chronological[i].profit>=0?'win':'loss';
+      chronological[i].grossProfit=Math.round((chronological[i].profit+(Number(chronological[i].commission)||0)-(Number(chronological[i].swap)||0))*100)/100;
+    }
+    all.splice(0,all.length,...chronological);
+
+    /* Final reconciliation check: the generated trade ledger must equal the
+       selected daily profit target exactly to the cent. */
+    const ledger=Math.round(all.reduce((sum,t)=>sum+t.profit,0)*100)/100;
+    if(Math.abs(ledger-dailyTarget)>0.009){
+      const correction=Math.round((dailyTarget-ledger)*100)/100;
+      const lastWin=all.slice().reverse().find(t=>t.profit>0);
+      if(lastWin){
+        lastWin.profit=Math.round((lastWin.profit+correction)*100)/100;
+        lastWin.grossProfit=Math.round((lastWin.profit+(Number(lastWin.commission)||0)-(Number(lastWin.swap)||0))*100)/100;
+      }
+      running=dayProfile.capital;
+      for(let i=0;i<all.length;i++){
+        running=Math.round((running+all[i].profit)*100)/100;
+        all[i].runningBalance=running;
+      }
+    }
+  }
+
+  all.sort((a,b)=>b.closed-a.closed || b.opened-a.opened);
+  return all;
+}
+
+function buildDataset(start,end){
+  const rows=[];
+  let cursor=startOfDay(start);
+  while(cursor<=end){
+    rows.push(...makeTradesForDay(cursor));
+    cursor=addDays(cursor,1);
+  }
+  rows.sort((a,b)=>b.closed-a.closed || b.opened-a.opened);
+  return rows;
+}
+
+function validateDailyEngine(day){
+  const rows=makeTradesForDay(day);
+  const p=dailyProfile(day);
+  const tradeCount=rows.length;
+  const wins=rows.filter(t=>t.profit>0).length;
+  const losses=rows.filter(t=>t.profit<0).length;
+  const ledger=Math.round(rows.reduce((s,t)=>s+t.profit,0)*100)/100;
+  const finalTrade=rows.length?rows.find(t=>t.sequenceIndex===rows.length-1):null;
+  const finalBalance=finalTrade?finalTrade.runningBalance:p.capital;
+  const winRate=tradeCount?wins/tradeCount:0;
+  return {
+    ok:tradeCount>=MIN_DAILY_TRADES &&
+       tradeCount<=MAX_DAILY_TRADES &&
+       wins>losses &&
+       winRate>=((tradeCount-DAILY_MAX_LOSSES)/tradeCount) &&
+       winRate<=((tradeCount-DAILY_MIN_LOSSES)/tradeCount) &&
+       losses>=DAILY_MIN_LOSSES &&
+       losses<=DAILY_MAX_LOSSES &&
+       ledger===Math.round(p.targetProfit*100)/100 &&
+       Math.abs((p.capital+ledger)-finalBalance)<0.011,
+    date:isoKey(day),
+    deposit:p.capital,
+    targetEnd:p.targetEnd,
+    trades:tradeCount,
+    wins,
+    losses,
+    winRate,
+    profit:ledger,
+    finalBalance
+  };
+}
+
+
+function normalizeDisplayTrade(t){
+  const x=deserializeLiveTrade(t||{});
+  return {
+    ...x,
+    symbol:String(x.symbol||'BTCUSDm'),action:String(x.action||'buy'),lot:String(x.lot||'0.01'),
+    entry:Number(x.entry)||0,exit:Number(x.exit)||0,tp:Number(x.tp)||0,sl:Number(x.sl)||0,
+    digits:Number.isFinite(Number(x.digits))?Number(x.digits):2,
+    profit:Number(x.profit)||0,runningBalance:Number(x.runningBalance)||0,
+    opened:safeIsoDate(x.opened),closed:safeIsoDate(x.closed)
+  };
+}
+
+function tradeHtml(t,index){
+  t=normalizeDisplayTrade(t);
+  const actionClass=t.action==='buy'?'buy':'';
+  const accent='<div class="accent"></div>';
+  return '<article class="trade compact" data-trade-id="'+t.id+'" data-trade-index="'+index+'" data-running-balance="'+(Number.isFinite(t.runningBalance)?t.runningBalance.toFixed(2):'')+'">'+accent+
+    '<div class="trade-main">'+
+      '<div class="trade-title">'+t.symbol+', <span class="action '+actionClass+'">'+t.action+' '+t.lot+'</span></div>'+
+      '<div class="prices">'+fmt(t.entry,t.digits)+' → '+fmt(t.exit,t.digits)+'</div>'+
+      '<div class="date">'+
+        ymd(t.closed)+' '+pad(t.closed.getHours())+':'+pad(t.closed.getMinutes())+':'+pad(t.closed.getSeconds())+
+      '</div>'+
+      '<div class="profit">'+money(t.profit)+'</div>'+
+    '</div>'+
+  '</article>';
+}
+
+function ensureExpandedDetails(tradeEl, t){
+  let main=tradeEl.querySelector('.trade-main');
+  if(!main) return;
+  let source=main.querySelector('.source-line');
+  if(!source){
+    source=document.createElement('div');
+    source.className='source-line';
+    main.appendChild(source);
+  }
+  source.textContent=
+    ymd(t.opened)+' '+pad(t.opened.getHours())+':'+pad(t.opened.getMinutes())+':'+pad(t.opened.getSeconds())+
+    ', '+SIM_BOT+'['+(t.closeReason||'market')+']';
+
+  let meta=tradeEl.querySelector('.meta');
+  if(!meta){
+    meta=document.createElement('div');
+    meta.className='meta';
+    const sl=Number.isFinite(t.sl)?t.sl:t.entry;
+    const tp=Number.isFinite(t.tp)?t.tp:t.exit;
+    const swap=Number.isFinite(t.swap)?t.swap:0;
+    const commission=Number.isFinite(t.commission)?t.commission:0;
+    meta.innerHTML=
+      '<div class="cell"><span class="k">S/L:</span><span class="v">'+fmt(sl,t.digits)+'</span></div>'+
+      '<div class="cell"><span class="k">Swap:</span><span class="v">'+money(swap)+'</span></div>'+
+      '<div class="cell"><span class="k">T/P:</span><span class="v">'+fmt(tp,t.digits)+'</span></div>'+
+      '<div class="cell"><span class="k">Taxes:</span><span class="v">0.00</span></div>'+
+      '<div class="cell"><span class="k">ID:</span><span class="v">'+String(39216855+Number(indexHash(t.id)))+'</span></div>'+
+      '<div class="cell"><span class="k">Commission:</span><span class="v">'+money(commission)+'</span></div>';
+    tradeEl.appendChild(meta);
+  }
+}
+function indexHash(s){return hash32(s)%9000;}
+
+let currentRows=[];
+let replayTimer=null;
+let replayToken=0;
+
+function stopReplay(){
+  replayToken++;
+  if(replayTimer){clearInterval(replayTimer);replayTimer=null;}
+}
+
+function renderTrades(rows){
+  tradesEl.innerHTML='';
+  rows=(Array.isArray(rows)?rows:[]).map(normalizeDisplayTrade);
+  currentRows=rows;
+  const fragment=document.createDocumentFragment();
+
+  rows.slice(0,MAX_VISIBLE_TRADES).forEach(function(t,index){
+    const holder=document.createElement('div');
+    holder.innerHTML=tradeHtml(t,index);
+    fragment.appendChild(holder.firstElementChild);
+  });
+
+  tradesEl.appendChild(fragment);
+
+  tradesEl.querySelectorAll('.trade').forEach(function(el){
+    el.addEventListener('click',function(e){
+      e.stopPropagation();
+      const id=el.dataset.tradeId;
+      const t=currentRows.find(x=>x.id===id);
+      if(!t) return;
+      const was=el.classList.contains('expanded');
+
+      tradesEl.querySelectorAll('.trade').forEach(function(other){
+        other.classList.remove('expanded');
+        other.classList.add('compact');
+      });
+
+      if(!was){
+        ensureExpandedDetails(el,t);
+        el.classList.remove('compact');
+        el.classList.add('expanded');
+      }
+    });
+  });
+}
+
+/* Page-local replay runner: the stored daily dataset is never consumed. */
+function publishChartLedger(){return true;}
+function stopLiveAdvance(){if(window.__armorDashReplayTimer){clearInterval(window.__armorDashReplayTimer);window.__armorDashReplayTimer=null;}}
+function animateReplay(){
+  stopLiveAdvance();window.__armorDashReplayNextAt=Date.now()+350;replayCursor=0;dailyDataset=null;ensureDailyDataset();renderReplayState();dailyRunning=true;hideDailyLoader();scheduleLiveAdvance();
+}
+function scheduleLiveAdvance(){
+  if(window.__armorDashReplayTimer||document.hidden)return;
+  if(replayCursor>=dailyReplayTrades().length)return;
+  window.__armorDashReplayTimer=setInterval(function(){
+    if(document.hidden){stopLiveAdvance();return;}
+    const rows=dailyReplayTrades();
+    if(replayCursor>=rows.length){stopLiveAdvance();return;}
+    if(Date.now()<window.__armorDashReplayNextAt)return;
+    replayCursor++;
+    renderReplayState();
+    const prev=rows[replayCursor-1]||null;
+    const delay=prev?520+Math.floor(rng(hash32(String(prev.id)+'|DAILY-REPLAY'))()*980):350;
+    window.__armorDashReplayNextAt=Date.now()+delay;
+  },250);
+}
+function advanceLiveState(){const rows=dailyReplayTrades();if(replayCursor>=rows.length){stopLiveAdvance();return readLiveState();}replayCursor++;renderReplayState();return readLiveState();}
+function autoStartSymbolSequence(){animateReplay();}
+
+function addTradeElement(t,index,autoOpen){
+  const holder=document.createElement('div');
+  holder.innerHTML=tradeHtml(t,index);
+  const el=holder.firstElementChild;
+
+  el.addEventListener('click',function(e){
+    e.stopPropagation();
+    const was=el.classList.contains('expanded');
+    tradesEl.querySelectorAll('.trade').forEach(function(other){
+      other.classList.remove('expanded');
+      other.classList.add('compact');
+    });
+    if(!was){
+      ensureExpandedDetails(el,t);
+      el.classList.remove('compact');
+      el.classList.add('expanded');
+    }
+  });
+
+  tradesEl.appendChild(el);
+
+  /* Replay rows remain compact; user taps still expand a trade normally. */
+}
+
+function loadPeriod(label,withReplay=true){
+  currentHistoryPeriod=label;
+  if(label!=='Today') releaseLiveOwner();
+  const range=rangeFor(label);
+  stopReplay(); clearAutoTimers(); stopLiveAdvance(); dailyRunning=false; activeSimulationDayKey=null; activeRows=[];
+  if(label==='Today') animateReplay();
+  else {const rows=buildDataset(range.start,range.end); const endpoint=isoKey(range.end);const endpointRows=rows.filter(t=>isoKey(t.closed)===endpoint);refreshDailySummary(range.end,endpointRows);renderTrades(rows);}
+  if(historyScroll)historyScroll.scrollTop=0;
+  const title=document.querySelector('.symbols');if(title)title.textContent='All symbols';
+}
+
+function toggleDateMenu(event){
+  if(event){event.preventDefault();event.stopPropagation();}
+  if(!dateMenu||!dateMenuBackdrop||!dateOverlayRoot) return;
+  const open=!dateMenu.classList.contains('open');
+  dateMenu.classList.toggle('open',open);
+  dateMenuBackdrop.classList.toggle('open',open);
+  dateOverlayRoot.classList.toggle('open',open);
+  dateOverlayRoot.setAttribute('aria-hidden',open?'false':'true');
+}
+let calendarPointerHandled=false;
+function pointInRect(x,y,r){return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;}
+function handleCalendarPointer(e){
+  if(!calendarHit||!dateMenu||!dateOverlayRoot) return;
+  if(dateOverlayRoot.classList.contains('open')) return;
+  const r=calendarHit.getBoundingClientRect();
+  const x=e.clientX ?? (e.touches&&e.touches[0]&&e.touches[0].clientX);
+  const y=e.clientY ?? (e.touches&&e.touches[0]&&e.touches[0].clientY);
+  if(typeof x!=='number'||typeof y!=='number'||!pointInRect(x,y,r)) return;
+  calendarPointerHandled=true;
+  e.preventDefault();e.stopPropagation();toggleDateMenu(e);
+}
+document.addEventListener('pointerdown',handleCalendarPointer,{capture:true,passive:false});
+document.addEventListener('touchstart',handleCalendarPointer,{capture:true,passive:false});
+if(calendarHit){
+  calendarHit.addEventListener('click',function(e){
+    if(calendarPointerHandled){calendarPointerHandled=false;e.preventDefault();e.stopPropagation();return;}
+    toggleDateMenu(e);
+  });
+  calendarHit.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleDateMenu(e);}
+  });
+}
+function closeDateMenu(){
+  if(!dateMenu||!dateMenuBackdrop||!dateOverlayRoot)return;
+  dateMenu.classList.remove('open');
+  dateMenuBackdrop.classList.remove('open');
+  dateOverlayRoot.classList.remove('open');
+  dateOverlayRoot.setAttribute('aria-hidden','true');
+}
+function optionKey(event,label){
+  if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPeriod(label);}
+}
+
+window.__customPeriodRange=null;
+
+function isoDateInputValue(d){
+  return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+}
+function parseDateInput(value){
+  if(!value) return null;
+  const parts=value.split('-').map(Number);
+  if(parts.length!==3 || parts.some(n=>!Number.isFinite(n))) return null;
+  return startOfDay(new Date(parts[0],parts[1]-1,parts[2]));
+}
+function openCustomPeriod(){
+  closeDateMenu();
+  const overlay=document.getElementById('customPeriodOverlay');
+  const startInput=document.getElementById('customStartInput');
+  const endInput=document.getElementById('customEndInput');
+  const today=startOfDay(new Date());
+  const current=window.__customPeriodRange || {start:addDays(today,-13),end:today};
+
+  startInput.value=isoDateInputValue(current.start);
+  endInput.value=isoDateInputValue(current.end);
+
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden','false');
+}
+function closeCustomPeriod(){
+  const overlay=document.getElementById('customPeriodOverlay');
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden','true');
+}
+function applyCustomPeriod(){
+  currentHistoryPeriod='Custom period';
+  const start=parseDateInput(document.getElementById('customStartInput').value);
+  const end=parseDateInput(document.getElementById('customEndInput').value);
+  if(!start||!end||end<start)return;
+  window.__customPeriodRange={start,end};
+  document.querySelectorAll('.date-option').forEach(function(option){option.classList.toggle('selected',option.dataset.period==='Custom period');});
+  setCalendarRanges(); closeCustomPeriod();
+  const rows=buildDataset(start,end); const endpointKey=isoKey(end); const endpointRows=rows.filter(t=>isoKey(t.closed)===endpointKey);
+  releaseLiveOwner(); stopReplay(); clearAutoTimers(); stopLiveAdvance(); dailyRunning=false; activeSimulationDayKey=null; activeRows=[];
+  refreshDailySummary(end,endpointRows); renderTrades(rows); if(historyScroll)historyScroll.scrollTop=0;
+}
+function selectPeriod(label){
+  currentHistoryPeriod=label;
+  document.querySelectorAll('.date-option').forEach(function(option){option.classList.toggle('selected',option.dataset.period===label);});
+  if(label==='Custom period'){openCustomPeriod();return;}
+  closeDateMenu();
+  const range=rangeFor(label); const rows=buildDataset(range.start,range.end); const endpointKey=isoKey(range.end); const endpointRows=rows.filter(t=>isoKey(t.closed)===endpointKey);
+  stopReplay(); clearAutoTimers(); stopLiveAdvance(); activeSimulationDayKey=null; activeRows=[];
+  if(label==='Today'){animateReplay();} else {dailyRunning=false;refreshDailySummary(range.end,endpointRows);renderTrades(rows);}
+  if(historyScroll)historyScroll.scrollTop=0;
+}
+function setTodayMode(){
+  currentHistoryPeriod='Today';
+  document.querySelectorAll('.date-option').forEach(function(option){option.classList.toggle('selected',option.dataset.period==='Today');});
+  const today=startOfDay(new Date()); const todayKey=isoKey(today);
+  lastRenderedTodayKey=todayKey; animateReplay();
+}
+function syncDailyRollover(){
+  const nowKey=localDateKey(); const dateChanged=nowKey!==lastDeviceDayKey; if(dateChanged)lastDeviceDayKey=nowKey;
+  if(currentHistoryPeriod==='Today'&&lastRenderedTodayKey!==nowKey){setCalendarRanges();setTodayMode();return;}
+  if(dateChanged)setCalendarRanges();
+}
+window.addEventListener('focus',function(){setCalendarRanges();if(!document.hidden)syncDailyRollover();},{passive:true});
+document.addEventListener('visibilitychange',function(){
+  if(document.hidden)stopLiveAdvance();
+  else if(currentHistoryPeriod==='Today'){renderReplayState();scheduleLiveAdvance();}
+},{passive:true});
+window.addEventListener('pageshow',function(){
+  if(document.hidden)return;
+  setCalendarRanges();syncDailyRollover();
+  if(currentHistoryPeriod==='Today')animateReplay();
+},{passive:true});
+window.addEventListener('pagehide',function(){stopLiveAdvance();window.__armorDashReplayNextAt=0;},{passive:true});
+window.addEventListener('storage',function(e){
+  if(e.key===DAILY_DATASET_KEY){dailyDataset=null;if(!document.hidden&&currentHistoryPeriod==='Today'){replayCursor=0;renderReplayState();}}
+},{passive:true});
+function go(target){
+  const routes={quotes:'index.html',chart:'chart.html',dashboard:'dashboard.html',trade:'trade.html',messages:'messages.html'};
+  const file=routes[target]||target+'.html';
+  window.location.assign(new URL('./'+file,document.baseURI).href);
+}
+window.go=go;
+setCalendarRanges();
+let lastDeviceDayKey=localDateKey();
+setTodayMode();
+setInterval(function(){syncDailyRollover();},1000);
+
+document.querySelectorAll('.nav-item[role="button"]').forEach(function(item){
+  item.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      e.preventDefault();
+      item.click();
+    }
+  });
+});
+
+
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    closeDateMenu();
+    closeCustomPeriod();
+  }
+});
+</script>
+
+</div>
+
+<!-- Aethronbot Prime standalone drawer overlay: isolated from page layout. -->
+<div class="aethron-drawer-root hd-render" id="aethronDrawerRoot" aria-hidden="true">
+  <div class="aethron-drawer-scrim" id="aethronDrawerScrim" aria-label="Close menu"></div>
+  <aside class="aethron-drawer-panel" id="aethronDrawerPanel" aria-label="Aethronbot Prime account drawer" data-account-name="Aethronbot Prime" data-account-id="68421726" data-server="Exness-Real26">
